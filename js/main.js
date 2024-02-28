@@ -1,145 +1,151 @@
-var numbers = 0;
-var gameSpeed = 1000;
-var lastResultsLength = 30;
+// const variables
+const LAST_RESULTS_LENGTH = 30;
 
-var clickMin = 1;
-var clickMax = 5;
-var clickMinCost = 35;
-var clickMaxCost = 65;
-var clickResults = [];
+// stats
+let stats = {
+	numbers: 0,
+	
+	clickMin: 1,
+	clickMax: 5,
+	clickMinCost: 35,
+	clickMaxCost: 65,
+	clickResults: [],
 
-var autoClickers = 0;
-var autoClickerCost = 100;
-var autoClickerMin = 1;
-var autoClickerMax = 10;
-var autoClickerMinCost = 80;
-var autoClickerMaxCost = 50;
-var autoClickerResults = [];
+	autoclickers: 0,
+	autoclickerCost: 100,
+	autoclickerMin: 1,
+	autoclickerMax: 10,
+	autoclickerMinCost: 80,
+	autoclickerMaxCost: 50,
+	autoclickerResults: []
+};
 
-console.log("Loaded scripts");
-updateUI();
+// buttons
+const clickBtn = document.getElementById('clickBtn');
+const clickMinBtn = document.getElementById('clickMinBtn');
+const clickMaxBtn = document.getElementById('clickMaxBtn');
+
+const autoclickerBuyBtn = document.getElementById('autoclickerBuyBtn');
+const autoclickerMinBtn = document.getElementById('autoclickerMinBtn');
+const autoclickerMaxBtn = document.getElementById('autoclickerMaxBtn');
+
+// ====================================================
+// UI Update
 
 function updateUI() {
-	document.getElementById('numbers').innerHTML = numberWithCommas(numbers);
+	document.getElementById('numbers').innerText = numWithCommas(stats.numbers);
 	
-	document.getElementById('clickMin').innerHTML = numberWithCommas(clickMin);
-	document.getElementById('clickMax').innerHTML = numberWithCommas(clickMax);
-	document.getElementById('clickMinCost').innerHTML = numberWithCommas(clickMinCost);
-	document.getElementById('clickMaxCost').innerHTML = numberWithCommas(clickMaxCost);
-	document.getElementById('clickResults').innerText = clickResults.join(", ");
+	document.getElementById('clickMin').innerText = numWithCommas(stats.clickMin);
+	document.getElementById('clickMax').innerText = numWithCommas(stats.clickMax);
+	document.getElementById('clickMinCost').innerText = numWithCommas(stats.clickMinCost);
+	document.getElementById('clickMaxCost').innerText = numWithCommas(stats.clickMaxCost);
+	document.getElementById('clickResults').innerText = stats.clickResults.join(", ");
 
-	document.getElementById('autoClickers').innerHTML = numberWithCommas(autoClickers);
-	document.getElementById('autoClickerCost').innerHTML = numberWithCommas(autoClickerCost);
-	document.getElementById('autoClickerMin').innerHTML = numberWithCommas(autoClickerMin);
-	document.getElementById('autoClickerMax').innerHTML = numberWithCommas(autoClickerMax);
-	document.getElementById('autoClickerMinCost').innerHTML = numberWithCommas(autoClickerMinCost);
-	document.getElementById('autoClickerMaxCost').innerHTML = numberWithCommas(autoClickerMaxCost);
-	document.getElementById('autoClickerResults').innerText = autoClickerResults.join(", ");
+	document.getElementById('autoclickers').innerText = numWithCommas(stats.autoclickers);
+	document.getElementById('autoclickerCost').innerText = numWithCommas(stats.autoclickerCost);
+	document.getElementById('autoclickerMin').innerText = numWithCommas(stats.autoclickerMin);
+	document.getElementById('autoclickerMax').innerText = numWithCommas(stats.autoclickerMax);
+	document.getElementById('autoclickerMinCost').innerText = numWithCommas(stats.autoclickerMinCost);
+	document.getElementById('autoclickerMaxCost').innerText = numWithCommas(stats.autoclickerMaxCost);
+	document.getElementById('autoclickerResults').innerText = stats.autoclickerResults.join(", ");
 
 	// Hidden stuff
-	document.getElementById('autoClickerButtons').hidden = autoClickers <= 0;
+	document.getElementById('unlockAutoclickers').hidden = stats.autoclickers <= 0;
 
-	// Buttons
-	document.getElementById('clickMinButton').disabled = clickMin >= clickMax || clickMinCost > numbers;
-	document.getElementById('clickMaxButton').disabled = clickMaxCost > numbers;
-	document.getElementById('autoClickerBuyButton').disabled = autoClickerCost > numbers;
-	document.getElementById('autoClickerMinButton').disabled = autoClickerMin >= autoClickerMax || autoClickerMinCost > numbers || autoClickers == 0;
-	document.getElementById('autoClickerMaxButton').disabled = autoClickerMaxCost > numbers || autoClickers == 0;
+	// Disable buttons
+	clickMinBtn.disabled = stats.clickMin >= stats.clickMax || stats.clickMinCost > stats.numbers;
+	clickMaxBtn.disabled = stats.clickMaxCost > stats.numbers;
+	autoclickerBuyBtn.disabled = stats.autoclickerCost > stats.numbers;
+	autoclickerMinBtn.disabled = stats.autoclickerMin >= stats.autoclickerMax || stats.autoclickerMinCost > stats.numbers || stats.autoclickers == 0;
+	autoclickerMaxBtn.disabled = stats.autoclickerMaxCost > stats.numbers || stats.autoclickers == 0;
 }
+updateUI();
 
-// Action functions
-function manualClick() {
-	let newNumber = getRandomInt(clickMin, clickMax);
-	numbers += newNumber;
-	clickResults.unshift(newNumber);
-	if (clickResults.length > lastResultsLength) {
+// ====================================================
+// Button functions
+
+clickBtn.addEventListener("click", () => {
+	let num = getRandomInt(stats.clickMin, stats.clickMax);
+	stats.numbers += num;
+	stats.clickResults.unshift(num);
+	if (stats.clickResults.length > LAST_RESULTS_LENGTH) {
 		document.getElementById('clickResultsEllipsis').removeAttribute('hidden');
-		clickResults.pop();
+		stats.clickResults.pop();
 	}
 	updateUI();
-}
+});
 
-function autoClicker() {
-	if (autoClickers > 0) {
-		let newNumber = getRandomInt(autoClickerMin, autoClickerMax) * autoClickers;
-		numbers += newNumber;
-		autoClickerResults.unshift(newNumber);
-		if (autoClickerResults.length > lastResultsLength) {
-			document.getElementById('autoClickerResultsEllipsis').removeAttribute('hidden');
-			autoClickerResults.pop();
-		}
-		updateUI();
+clickMinBtn.addEventListener("click", () => {
+	if (stats.numbers >= stats.clickMinCost) {
+		stats.clickMin += 1;
+		stats.numbers -= stats.clickMinCost;
+		stats.clickMinCost += Math.floor(10 * Math.pow(1.1, stats.clickMin));
 	}
-}
-
-// Buy functions
-function increaseClickMin() {
-	if (numbers >= clickMinCost) {
-		clickMin += 1;
-		numbers -= clickMinCost;
-	}
-
-	clickMinCost = clickMinCost + Math.floor(10 * Math.pow(1.1, clickMin));
 	updateUI();
-}
+});
 
-function increaseClickMax() {
-	if (numbers >= clickMaxCost) {
-		clickMax += 1;
-		numbers -= clickMaxCost;
-	}
-
-	clickMaxCost = clickMaxCost + Math.floor(10 * Math.pow(1.05, clickMax));
+clickMaxBtn.addEventListener("click", () => {
+	if (stats.numbers >= stats.clickMaxCost) {
+		stats.clickMax += 1;
+		stats.numbers -= stats.clickMaxCost;
+		stats.clickMaxCost += Math.floor(10 * Math.pow(1.05, stats.clickMax));
+	}	
 	updateUI();
-}
+});
 
-function buyAutoClicker() {
-	if (numbers >= autoClickerCost) {
-		autoClickers += 1;
-		numbers -= autoClickerCost;
+autoclickerBuyBtn.addEventListener("click", () => {
+	if (stats.numbers >= stats.autoclickerCost) {
+		stats.autoclickers += 1;
+		stats.numbers -= stats.autoclickerCost;
+		stats.autoclickerCost += Math.floor(25 * Math.pow(1.1, stats.autoclickers));
 	}
-
-	autoClickerCost = autoClickerCost + Math.floor(25 * Math.pow(1.1, autoClickers + 1));
 	updateUI();
-}
+});
 
-function increaseAutoClickerMin() {
-	if (numbers >= autoClickerMinCost) {
-		autoClickerMin += 1;
-		numbers -= autoClickerMinCost;
+autoclickerMinBtn.addEventListener("click", () => {
+	if (stats.numbers >= stats.autoclickerMinCost) {
+		stats.autoclickerMin += 1;
+		stats.numbers -= stats.autoclickerMinCost;
+		stats.autoclickerMinCost += Math.floor(10 * Math.pow(1.1, stats.autoclickerMin));
 	}
-
-	autoClickerMinCost = autoClickerMinCost + Math.floor(10 * Math.pow(1.1, autoClickerMin));
 	updateUI();
-}
+});
 
-function increaseAutoClickerMax() {
-	if (numbers >= autoClickerMaxCost) {
-		autoClickerMax += 1;
-		numbers -= autoClickerMaxCost;
+autoclickerMaxBtn.addEventListener("click", () => {
+	if (stats.numbers >= stats.autoclickerMaxCost) {
+		stats.autoclickerMax += 1;
+		stats.numbers -= stats.autoclickerMaxCost;
+		stats.autoclickerMaxCost += Math.floor(10 * Math.pow(1.05, stats.autoclickerMax));
 	}
-
-	autoClickerMaxCost = autoClickerMaxCost + Math.floor(10 * Math.pow(1.05, autoClickerMax));
 	updateUI();
-}
+});
 
-// Loop
+// ====================================================
+// Game Loop
+
 window.setInterval(function() {
-	autoClicker();
-	updateUI();
-}, gameSpeed);
+	// Autoclickers
+	for (let i = 0; i < stats.autoclickers; i++) {
+		let num = getRandomInt(stats.autoclickerMin, stats.autoclickerMax);
+		stats.numbers += num;
+		stats.autoclickerResults.unshift(num);
 
+		if (stats.autoclickerResults.length > LAST_RESULTS_LENGTH) {
+			document.getElementById('autoclickerResultsEllipsis').removeAttribute('hidden');
+			stats.autoclickerResults.pop();
+		}
+	}
+
+	updateUI();
+}, 1000);
+
+// ====================================================
 // Utility functions
+
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;;
 }
 
-function numberWithCommas(x) {
+function numWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-// Debug
-function debug_increaseNumbers(num) {
-	numbers += num;
-	updateUI();
 }

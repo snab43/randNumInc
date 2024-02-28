@@ -17,35 +17,27 @@
 	<br/><br/>
 	
 	<div id="numClick">
-		<button onClick="manualClick()">Get a Number</button><br/>
+		<button id="clickBtn">Get a Number</button><br/>
 		Possible range: <span id="clickMin"></span> - <span id="clickMax"></span><br/>
 		Last results: <span id="clickResults"></span><span id="clickResultsEllipsis" hidden>, ...</span>
 		<br/><br/>
-		<button id="clickMinButton" onClick="increaseClickMin()">Increase Min (Cost: <span id="clickMinCost"></span>)</button>
-		<button id="clickMaxButton" onClick="increaseClickMax()">Increase Max (Cost: <span id="clickMaxCost"></span>)</button>
+		<button id="clickMinBtn">Increase Min (Cost: <span id="clickMinCost"></span>)</button>
+		<button id="clickMaxBtn">Increase Max (Cost: <span id="clickMaxCost"></span>)</button>
 	</div>
 	<br/><br/>
 
-	<div id="autoClicker">
-		Auto Clickers: <span id="autoClickers"></span><br/>
-		<button id="autoClickerBuyButton" onClick="buyAutoClicker()">Buy an auto clicker (Cost: <span id="autoClickerCost"></span>)</button>
+	<div id="autoclicker">
+		Auto Clickers: <span id="autoclickers"></span><br/>
+		<button id="autoclickerBuyBtn">Buy an auto clicker (Cost: <span id="autoclickerCost"></span>)</button>
 		<br /><br/>
 
-		<div id="autoClickerButtons" hidden>
-			Possible range: <span id="autoClickerMin"></span> - <span id="autoClickerMax"></span><br/>
-			Last results: <span id="autoClickerResults"></span><span id="autoClickerResultsEllipsis" hidden>, ...</span>
+		<div id="unlockAutoclickers" hidden>
+			Possible range: <span id="autoclickerMin"></span> - <span id="autoclickerMax"></span><br/>
+			Last results: <span id="autoclickerResults"></span><span id="autoclickerResultsEllipsis" hidden>, ...</span>
 			<br/>
-			<button id="autoClickerMinButton" onClick="increaseAutoClickerMin()">Increase Min (Cost: <span id="autoClickerMinCost"></span>)</button>
-			<button id="autoClickerMaxButton" onClick="increaseAutoClickerMax()">Increase Max (Cost: <span id="autoClickerMaxCost"></span>)</button>
+			<button id="autoclickerMinBtn">Increase Min (Cost: <span id="autoclickerMinCost"></span>)</button>
+			<button id="autoclickerMaxBtn">Increase Max (Cost: <span id="autoclickerMaxCost"></span>)</button>
 		</div>
-	</div>
-
-	<br/><br/><br/><br/>
-	<hr/>
-
-	<div id="debug">
-		<h2>Debug</h2>
-		<button onClick="debug_increaseNumbers(1000000)">Give Me 1,000,000</button>
 	</div>
 
 	<script type="text/javascript" src="js/main.js"></script>
