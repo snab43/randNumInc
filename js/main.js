@@ -16,6 +16,8 @@ var autoClickerMaxCost = 50;
 console.log("Loaded scripts");
 updateUI();
 
+
+
 function updateUI() {
 	document.getElementById('numbers').innerHTML = numberWithCommas(numbers);
 	
@@ -31,17 +33,11 @@ function updateUI() {
 	document.getElementById('autoClickerMinCost').innerHTML = numberWithCommas(autoClickerMinCost);
 	document.getElementById('autoClickerMaxCost').innerHTML = numberWithCommas(autoClickerMaxCost);
 
-	if (clickMin >= clickMax) {
-		document.getElementById('clickMinButton').disabled = true;
-	} else {
-		document.getElementById('clickMinButton').disabled = false;
-	}
-
-	if (autoClickerMin >= autoClickerMax) {
-		document.getElementById('autoClickerMinButton').disabled = true;
-	} else {
-		document.getElementById('autoClickerMinButton').disabled = false;
-	}
+	document.getElementById('clickMinButton').disabled = clickMin >= clickMax || clickMinCost > numbers;
+	document.getElementById('clickMaxButton').disabled = clickMaxCost > numbers;
+	document.getElementById('autoClickerBuyButton').disabled = autoClickerCost > numbers;
+	document.getElementById('autoClickerMinButton').disabled = autoClickerMin >= autoClickerMax || autoClickerMinCost > numbers;
+	document.getElementById('autoClickerMaxButton').disabled = autoClickerMaxCost > numbers;
 }
 
 // Action functions
