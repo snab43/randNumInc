@@ -17,7 +17,8 @@
 			<div class="title-bar-text">Stats</div>
 		</div>
 		<div class="window-body">
-			Numbers: <span id="numbers"></span> (<span id="numbersPerSec">0</span>/s)
+			<div id="numbersContainer">Numbers: <span id="numbers"></span> (<span id="numbersPerSec">0</span>/s)</div>
+			<div id="primeNumbersContainer" hidden>Prime Numbers: <span id="primeNumbers"></span> (<span id="primeNumbersPerSec">0</span>/s)</div>
 		</div>
 	</div>
 	
@@ -36,8 +37,8 @@
 				</div>
 			</fieldset>
 			<br/>
-			<button id="clickMinBtn">Increase Min (Cost: <span id="clickMinCost"></span>)</button>
-			<button id="clickMaxBtn">Increase Max (Cost: <span id="clickMaxCost"></span>)</button>
+			<button id="clickMinBtn">Increase Min (Cost: <span id="clickMinCost"></span> Numbers)</button>
+			<button id="clickMaxBtn">Increase Max (Cost: <span id="clickMaxCost"></span> Numbers)</button>
 		</div>
 	</div>
 
@@ -48,7 +49,7 @@
 		</div>
 		<div class="window-body">
 			<p>Auto Clickers: <span id="autoclickers"></span></p>
-			<button id="autoclickerBuyBtn">Buy an auto clicker (Cost: <span id="autoclickerCost"></span>)</button>
+			<button id="autoclickerBuyBtn">Buy an auto clicker (Cost: <span id="autoclickerCost"></span> Numbers)</button>
 			<br/><br/>
 			<div id="unlockAutoclickers" hidden>
 				<p>Possible range: <span id="autoclickerMin"></span> - <span id="autoclickerMax"></span></p>
@@ -59,8 +60,8 @@
 					</div>
 				</fieldset>
 				<br/>
-				<button id="autoclickerMinBtn">Increase Min (Cost: <span id="autoclickerMinCost"></span>)</button>
-				<button id="autoclickerMaxBtn">Increase Max (Cost: <span id="autoclickerMaxCost"></span>)</button>
+				<button id="autoclickerMinBtn">Increase Min (Cost: <span id="autoclickerMinCost"></span> Numbers)</button>
+				<button id="autoclickerMaxBtn">Increase Max (Cost: <span id="autoclickerMaxCost"></span> Numbers)</button>
 			</div>
 		</div>
 	</div>
@@ -75,8 +76,16 @@
 			<button id="loadGameBtn">Load Game</button>
 			<button id="deleteSaveBtn">Delete Save</button>
 		</div>
+		<div class="status-bar">
+			<p class="status-bar-field">randNumInc.exe</p>
+			<p class="status-bar-field">v0.1.0</p>
+			<p class="status-bar-field">Copyright &copy; <span id="year"></span></p>
+		</div>
 	</div>
 
 	<script type="text/javascript" src="js/main.js"></script>
+	<script>
+		document.getElementById('year').textContent = new Date().getFullYear();
+	</script>
 </body>
 </html>

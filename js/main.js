@@ -4,6 +4,7 @@ const LAST_RESULTS_LENGTH = 100;
 // stats
 let stats = {
 	numbers: 0,
+	primeNumbers: 0,
 	
 	clickMin: 1,
 	clickMax: 5,
@@ -38,6 +39,7 @@ const deleteSaveBtn = document.getElementById('deleteSaveBtn');
 
 function updateUI() {
 	document.getElementById('numbers').innerText = numWithCommas(stats.numbers);
+	document.getElementById('primeNumbers').innerText = numWithCommas(stats.primeNumbers);
 	
 	document.getElementById('clickMin').innerText = numWithCommas(stats.clickMin);
 	document.getElementById('clickMax').innerText = numWithCommas(stats.clickMax);
@@ -54,9 +56,11 @@ function updateUI() {
 	document.getElementById('autoclickerResults').innerText = stats.autoclickerResults.join(", ");
 
 	document.getElementById('numbersPerSec').innerText = numWithCommas(deltaNumber);
-
+	document.getElementById('primeNumbersPerSec').innerText = numWithCommas(deltaPrimeNumber);
+	
 	// Hidden stuff
 	document.getElementById('unlockAutoclickers').hidden = stats.autoclickers <= 0;
+	document.getElementById('primeNumbersContainer').hidden = stats.primeNumbers <= 0;
 
 	// Disable buttons
 	clickMinBtn.disabled = stats.clickMin >= stats.clickMax || stats.clickMinCost > stats.numbers;
@@ -73,8 +77,13 @@ clickBtn.addEventListener("click", () => {
 	let num = getRandomInt(stats.clickMin, stats.clickMax);
 	stats.numbers += num;
 	stats.clickResults.unshift(num);
+	
 	if (stats.clickResults.length > LAST_RESULTS_LENGTH) {
 		stats.clickResults.pop();
+	}
+
+	if (isPrime(num)) {
+		stats.primeNumbers += num;
 	}
 	updateUI();
 });
@@ -137,9 +146,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 lastNumber = 0;
 deltaNumber = 0;
+
+lastPrimeNumber = 0;
+deltaPrimeNumber = 0;
+
 window.setInterval(function() {
 	deltaNumber = stats.numbers - lastNumber;
 	lastNumber = stats.numbers;
+
+	deltaPrimeNumber = stats.primeNumbers - lastPrimeNumber;
+	lastPrimeNumber = stats.primeNumbers;
 
 	// Autoclickers
 	for (let i = 0; i < stats.autoclickers; i++) {
@@ -149,6 +165,10 @@ window.setInterval(function() {
 
 		if (stats.autoclickerResults.length > LAST_RESULTS_LENGTH) {
 			stats.autoclickerResults.pop();
+		}
+
+		if (isPrime(num)) {
+			stats.primeNumbers += num;
 		}
 	}
 
@@ -201,6 +221,15 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;;
 }
 
-function numWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function numWithCommas(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function isPrime(num) {
+	if (num < 2) return false;
+	if (num === 2) return true;
+	for (let i = 2; i <= Math.sqrt(num); i++) {
+		if (num % i === 0) return false;
+	}
+	return true;
 }
