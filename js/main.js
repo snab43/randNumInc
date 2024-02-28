@@ -29,6 +29,10 @@ const autoclickerBuyBtn = document.getElementById('autoclickerBuyBtn');
 const autoclickerMinBtn = document.getElementById('autoclickerMinBtn');
 const autoclickerMaxBtn = document.getElementById('autoclickerMaxBtn');
 
+const saveGameBtn = document.getElementById('saveGameBtn');
+const loadGameBtn = document.getElementById('loadGameBtn');
+const deleteSaveBtn = document.getElementById('deleteSaveBtn');
+
 // ====================================================
 // UI Update
 
@@ -59,7 +63,6 @@ function updateUI() {
 	autoclickerMinBtn.disabled = stats.autoclickerMin >= stats.autoclickerMax || stats.autoclickerMinCost > stats.numbers || stats.autoclickers == 0;
 	autoclickerMaxBtn.disabled = stats.autoclickerMaxCost > stats.numbers || stats.autoclickers == 0;
 }
-updateUI();
 
 // ====================================================
 // Button functions
@@ -121,6 +124,14 @@ autoclickerMaxBtn.addEventListener("click", () => {
 });
 
 // ====================================================
+// Game initialize
+document.addEventListener('DOMContentLoaded', () => {
+	loadGame();
+	checkSaveExists();
+	updateUI();
+});
+
+// ====================================================
 // Game Loop
 
 window.setInterval(function() {
@@ -138,6 +149,46 @@ window.setInterval(function() {
 
 	updateUI();
 }, 1000);
+
+
+// ====================================================
+// Data Management
+
+function checkSaveExists() {
+	const save = localStorage.getItem("save");
+	loadGameBtn.disabled = !save;
+}
+
+function saveGame() {
+	localStorage.setItem("save", JSON.stringify(stats));
+	checkSaveExists();
+}
+
+function loadGame() {
+	const save = JSON.parse(localStorage.getItem("save"));
+
+	if (save) {
+		Object.keys(stats).forEach(key => {
+			if (typeof save[key] !== "undefined") {
+				stats[key] = save[key];
+			}
+		});
+		updateUI();
+	} else {
+		console.log("No save file found.");
+	}
+}
+
+saveGameBtn.addEventListener("click", saveGame);
+loadGameBtn.addEventListener("click", loadGame);
+deleteSaveBtn.addEventListener("click", () => {
+	localStorage.removeItem("save");
+	location.reload();
+});
+
+window.setInterval(function() {
+	saveGame();
+}, 30 * 1000);
 
 // ====================================================
 // Utility functions
