@@ -36,12 +36,15 @@ function updateUI() {
 	document.getElementById('autoClickerMaxCost').innerHTML = numberWithCommas(autoClickerMaxCost);
 	document.getElementById('autoClickerResults').innerText = autoClickerResults.join(", ");
 
+	// Hidden stuff
+	document.getElementById('autoClickerButtons').hidden = autoClickers <= 0;
+
 	// Buttons
 	document.getElementById('clickMinButton').disabled = clickMin >= clickMax || clickMinCost > numbers;
 	document.getElementById('clickMaxButton').disabled = clickMaxCost > numbers;
 	document.getElementById('autoClickerBuyButton').disabled = autoClickerCost > numbers;
-	document.getElementById('autoClickerMinButton').disabled = autoClickerMin >= autoClickerMax || autoClickerMinCost > numbers;
-	document.getElementById('autoClickerMaxButton').disabled = autoClickerMaxCost > numbers;
+	document.getElementById('autoClickerMinButton').disabled = autoClickerMin >= autoClickerMax || autoClickerMinCost > numbers || autoClickers == 0;
+	document.getElementById('autoClickerMaxButton').disabled = autoClickerMaxCost > numbers || autoClickers == 0;
 }
 
 // Action functions
