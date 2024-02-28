@@ -18,7 +18,8 @@
 	
 	<div id="numClick">
 		<button onClick="manualClick()">Get a Number</button><br/>
-		Possible range: <span id="clickMin"></span> - <span id="clickMax"></span>
+		Possible range: <span id="clickMin"></span> - <span id="clickMax"></span><br/>
+		Last results: <span id="clickResults"></span><span id="clickResultsEllipsis" hidden>, ...</span>
 		<br/><br/>
 		<button id="clickMinButton" onClick="increaseClickMin()">Increase Min (Cost: <span id="clickMinCost"></span>)</button>
 		<button id="clickMaxButton" onClick="increaseClickMax()">Increase Max (Cost: <span id="clickMaxCost"></span>)</button>
@@ -29,7 +30,8 @@
 		Auto Clickers: <span id="autoClickers"></span><br/>
 		<button id="autoClickerBuyButton" onClick="buyAutoClicker()">Buy an auto clicker (Cost: <span id="autoClickerCost"></span>)</button>
 		<br /><br/>
-		Possible range: <span id="autoClickerMin"></span> - <span id="autoClickerMax"></span>
+		Possible range: <span id="autoClickerMin"></span> - <span id="autoClickerMax"></span><br/>
+		Last results: <span id="autoClickerResults"></span><span id="autoClickerResultsEllipsis" hidden>, ...</span>
 		<br/>
 		<button id="autoClickerMinButton" onClick="increaseAutoClickerMin()">Increase Min (Cost: <span id="autoClickerMinCost"></span>)</button>
 		<button id="autoClickerMaxButton" onClick="increaseAutoClickerMax()">Increase Max (Cost: <span id="autoClickerMaxCost"></span>)</button>
