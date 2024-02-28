@@ -83,7 +83,7 @@ clickMinBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.clickMinCost) {
 		stats.clickMin += 1;
 		stats.numbers -= stats.clickMinCost;
-		stats.clickMinCost += Math.floor(10 * Math.pow(1.1, stats.clickMin));
+		stats.clickMinCost += Math.floor(10 * Math.pow(1.05, stats.clickMin));
 	}
 	updateUI();
 });
@@ -92,7 +92,7 @@ clickMaxBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.clickMaxCost) {
 		stats.clickMax += 1;
 		stats.numbers -= stats.clickMaxCost;
-		stats.clickMaxCost += Math.floor(10 * Math.pow(1.05, stats.clickMax));
+		stats.clickMaxCost += Math.floor(8 * Math.pow(1.025, stats.clickMax));
 	}	
 	updateUI();
 });
@@ -101,7 +101,7 @@ autoclickerBuyBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.autoclickerCost) {
 		stats.autoclickers += 1;
 		stats.numbers -= stats.autoclickerCost;
-		stats.autoclickerCost += Math.floor(25 * Math.pow(1.1, stats.autoclickers));
+		stats.autoclickerCost += Math.floor(50 * Math.pow(1.1, stats.autoclickers));
 	}
 	updateUI();
 });
@@ -110,7 +110,7 @@ autoclickerMinBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.autoclickerMinCost) {
 		stats.autoclickerMin += 1;
 		stats.numbers -= stats.autoclickerMinCost;
-		stats.autoclickerMinCost += Math.floor(10 * Math.pow(1.1, stats.autoclickerMin));
+		stats.autoclickerMinCost += Math.floor(10 * Math.pow(1.15, stats.autoclickerMin));
 	}
 	updateUI();
 });
@@ -119,7 +119,7 @@ autoclickerMaxBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.autoclickerMaxCost) {
 		stats.autoclickerMax += 1;
 		stats.numbers -= stats.autoclickerMaxCost;
-		stats.autoclickerMaxCost += Math.floor(10 * Math.pow(1.05, stats.autoclickerMax));
+		stats.autoclickerMaxCost += Math.floor(8 * Math.pow(1.05, stats.autoclickerMax));
 	}
 	updateUI();
 });
