@@ -53,6 +53,8 @@ function updateUI() {
 	document.getElementById('autoclickerMaxCost').innerText = numWithCommas(stats.autoclickerMaxCost);
 	document.getElementById('autoclickerResults').innerText = stats.autoclickerResults.join(", ");
 
+	document.getElementById('numbersPerSec').innerText = numWithCommas(deltaNumber);
+
 	// Hidden stuff
 	document.getElementById('unlockAutoclickers').hidden = stats.autoclickers <= 0;
 
@@ -133,7 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // ====================================================
 // Game Loop
 
+lastNumber = 0;
+deltaNumber = 0;
 window.setInterval(function() {
+	deltaNumber = stats.numbers - lastNumber;
+	lastNumber = stats.numbers;
+
 	// Autoclickers
 	for (let i = 0; i < stats.autoclickers; i++) {
 		let num = getRandomInt(stats.autoclickerMin, stats.autoclickerMax);
@@ -147,7 +154,6 @@ window.setInterval(function() {
 
 	updateUI();
 }, 1000);
-
 
 // ====================================================
 // Data Management
