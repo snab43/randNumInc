@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+	<title>randNumInc</title>
+</head>
+<body>
+	<h1>randNumInc</h1>
+
+	<div id="stats">
+		Numbers: <span id="numbers"></span>
+	</div>
+	<br/><br/>
+	
+	<div id="numClick">
+		<button onClick="manualClick()">Get a Number</button><br/>
+		Possible range: <span id="clickMin"></span> - <span id="clickMax"></span>
+		<br/><br/>
+		<button id="clickMinButton" onClick="increaseClickMin()">Increase Min (Cost: <span id="clickMinCost"></span>)</button>
+		<button id="clickMaxButton" onClick="increaseClickMax()">Increase Max (Cost: <span id="clickMaxCost"></span>)</button>
+	</div>
+	<br/><br/>
+
+	<div id="autoClicker">
+		Auto Clickers: <span id="autoClickers"></span><br/>
+		<button onClick="buyAutoClicker()">Buy an auto clicker (Cost: <span id="autoClickerCost"></span>)</button>
+		<br /><br/>
+		Possible range: <span id="autoClickerMin"></span> - <span id="autoClickerMax"></span>
+		<br/>
+		<button id="autoClickerMinButton" onClick="increaseAutoClickerMin()">Increase Min (Cost: <span id="autoClickerMinCost"></span>)</button>
+		<button id="autoClickerMaxButton" onClick="increaseAutoClickerMax()">Increase Max (Cost: <span id="autoClickerMaxCost"></span>)</button>
+	</div>
+
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
