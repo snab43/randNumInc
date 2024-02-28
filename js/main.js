@@ -79,7 +79,7 @@ function increaseClickMin() {
 		numbers -= clickMinCost;
 	}
 
-	clickMinCost = clickMinCost + Math.floor(10 * Math.pow(1.5, clickMin));
+	clickMinCost = clickMinCost + Math.floor(10 * Math.pow(1.1, clickMin));
 	updateUI();
 }
 
@@ -89,7 +89,7 @@ function increaseClickMax() {
 		numbers -= clickMaxCost;
 	}
 
-	clickMaxCost = clickMaxCost + Math.floor(10 * Math.pow(1.4, clickMax));
+	clickMaxCost = clickMaxCost + Math.floor(10 * Math.pow(1.05, clickMax));
 	updateUI();
 }
 
@@ -99,7 +99,7 @@ function buyAutoClicker() {
 		numbers -= autoClickerCost;
 	}
 
-	autoClickerCost = autoClickerCost + Math.floor(500 * Math.pow(1.75, autoClickers + 1));
+	autoClickerCost = autoClickerCost + Math.floor(25 * Math.pow(1.1, autoClickers + 1));
 	updateUI();
 }
 
@@ -109,7 +109,7 @@ function increaseAutoClickerMin() {
 		numbers -= autoClickerMinCost;
 	}
 
-	autoClickerMinCost = autoClickerMinCost + Math.floor(10 * Math.pow(1.5, autoClickerMin));
+	autoClickerMinCost = autoClickerMinCost + Math.floor(10 * Math.pow(1.1, autoClickerMin));
 	updateUI();
 }
 
@@ -119,7 +119,7 @@ function increaseAutoClickerMax() {
 		numbers -= autoClickerMaxCost;
 	}
 
-	autoClickerMaxCost = autoClickerMaxCost + Math.floor(10 * Math.pow(1.4, autoClickerMax));
+	autoClickerMaxCost = autoClickerMaxCost + Math.floor(10 * Math.pow(1.05, autoClickerMax));
 	updateUI();
 }
 
