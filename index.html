@@ -18,7 +18,13 @@
 		</div>
 		<div class="window-body">
 			<div id="numbersContainer">Numbers: <span id="numbers"></span> (<span id="numbersPerSec">0</span>/s)</div>
-			<div id="primeNumbersContainer" hidden>Prime Numbers: <span id="primeNumbers"></span> (<span id="primeNumbersPerSec">0</span>/s)</div>
+			<div id="primeNumbersContainer">Prime Numbers: <span id="primeNumbers" style="color: blue;"></span> (<span id="primeNumbersPerSec" style="color: blue;">0</span>/s)</div>
+			<div id="TenNumbersContainer">10^x Numbers: <span id="tenNumbers" style="color: red;"></span> (<span id="tenNumbersPerSec" style="color: red;">0</span>/s)</div>
+		</div>
+
+		<div class="status-bar">
+			<p class="status-bar-field">Total Numbers: <span id="totalNumbers"></span></p>
+			<p class="status-bar-field">Total Time: <span id="totalTime"></span></p>
 		</div>
 	</div>
 	
@@ -49,7 +55,7 @@
 		</div>
 		<div class="window-body">
 			<p>Auto Clickers: <span id="autoclickers"></span></p>
-			<button id="autoclickerBuyBtn">Buy an auto clicker (Cost: <span id="autoclickerCost"></span> Numbers)</button>
+			<button id="autoclickerBuyBtn">Buy an auto clicker (Cost: <span id="autoclickerCost"></span> Prime Numbers)</button>
 			<br/><br/>
 			<div id="unlockAutoclickers" hidden>
 				<p>Possible range: <span id="autoclickerMin"></span> - <span id="autoclickerMax"></span></p>
