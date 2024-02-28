@@ -1,5 +1,5 @@
 // const variables
-const LAST_RESULTS_LENGTH = 30;
+const LAST_RESULTS_LENGTH = 100;
 
 // stats
 let stats = {
@@ -72,7 +72,6 @@ clickBtn.addEventListener("click", () => {
 	stats.numbers += num;
 	stats.clickResults.unshift(num);
 	if (stats.clickResults.length > LAST_RESULTS_LENGTH) {
-		document.getElementById('clickResultsEllipsis').removeAttribute('hidden');
 		stats.clickResults.pop();
 	}
 	updateUI();
@@ -142,7 +141,6 @@ window.setInterval(function() {
 		stats.autoclickerResults.unshift(num);
 
 		if (stats.autoclickerResults.length > LAST_RESULTS_LENGTH) {
-			document.getElementById('autoclickerResultsEllipsis').removeAttribute('hidden');
 			stats.autoclickerResults.pop();
 		}
 	}

@@ -1,0 +1,13 @@
+html {
+	background-color: #008080;
+	max-width: 540px;
+	margin: auto;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+.window {
+	margin-bottom: 12px;
+}

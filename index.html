@@ -4,50 +4,81 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<link rel="stylesheet" href="https://unpkg.com/98.css" />
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
 
-	<title>randNumInc</title>
+	<title>randNumInc.exe</title>
 </head>
 <body>
-	<h1>randNumInc</h1>
+	<h1>randNumInc.exe</h1>
 
-	<div id="stats">
-		Numbers: <span id="numbers"></span>
+	<div class="window">
+		<div class="title-bar">
+			<div class="title-bar-text">Stats</div>
+		</div>
+		<div class="window-body">
+			Numbers: <span id="numbers"></span>
+		</div>
 	</div>
-	<br/>
 	
-	<div id="numClick">
-		<button id="clickBtn">Get a Number</button><br/>
-		Possible range: <span id="clickMin"></span> - <span id="clickMax"></span><br/>
-		Last results: <span id="clickResults"></span><span id="clickResultsEllipsis" hidden>, ...</span>
-		<br/><br/>
-		<button id="clickMinBtn">Increase Min (Cost: <span id="clickMinCost"></span>)</button>
-		<button id="clickMaxBtn">Increase Max (Cost: <span id="clickMaxCost"></span>)</button>
-	</div>
-	<br/><br/>
-
-	<div id="autoclicker">
-		Auto Clickers: <span id="autoclickers"></span><br/>
-		<button id="autoclickerBuyBtn">Buy an auto clicker (Cost: <span id="autoclickerCost"></span>)</button>
-		<br/><br/>
-
-		<div id="unlockAutoclickers" hidden>
-			Possible range: <span id="autoclickerMin"></span> - <span id="autoclickerMax"></span><br/>
-			Last results: <span id="autoclickerResults"></span><span id="autoclickerResultsEllipsis" hidden>, ...</span>
+	<div class="window">
+		<div class="title-bar">
+			<div class="title-bar-text">Manual Clicks</div>
+		</div>
+		<div class="window-body">
+			<button id="clickBtn">Get a Number</button><br/>
 			<br/>
-			<button id="autoclickerMinBtn">Increase Min (Cost: <span id="autoclickerMinCost"></span>)</button>
-			<button id="autoclickerMaxBtn">Increase Max (Cost: <span id="autoclickerMaxCost"></span>)</button>
-			<br/><br/>
+			<p>Possible range: <span id="clickMin"></span> - <span id="clickMax"></span></p>
+			<fieldset>
+				<legend>Last results</legend>
+				<div class="field-row">
+					<span id="clickResults"></span>
+				</div>
+			</fieldset>
+			<br/>
+			<button id="clickMinBtn">Increase Min (Cost: <span id="clickMinCost"></span>)</button>
+			<button id="clickMaxBtn">Increase Max (Cost: <span id="clickMaxCost"></span>)</button>
+
 		</div>
 	</div>
 
-	<hr/>
 
+	<div class="window">
+		<div class="title-bar">
+			<div class="title-bar-text">Autoclickers</div>
+		</div>
+		<div class="window-body">
+			<p>Auto Clickers: <span id="autoclickers"></span></p>
+			<button id="autoclickerBuyBtn">Buy an auto clicker (Cost: <span id="autoclickerCost"></span>)</button>
+			<br/><br/>
+			<div id="unlockAutoclickers" hidden>
+				<p>Possible range: <span id="autoclickerMin"></span> - <span id="autoclickerMax"></span></p>
+				<fieldset>
+					<legend>Last results</legend>
+					<div class="field-row">
+						<span id="autoclickerResults"></span>
+					</div>
+				</fieldset>
+				<br/>
+				<button id="autoclickerMinBtn">Increase Min (Cost: <span id="autoclickerMinCost"></span>)</button>
+				<button id="autoclickerMaxBtn">Increase Max (Cost: <span id="autoclickerMaxCost"></span>)</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="window">
+		<div class="title-bar">
+			<div class="title-bar-text">Save File</div>
+		</div>
+		<div class="window-body">
+			<p>Game auto-saves every 30 seconds.</p>
+			<button id="saveGameBtn">Save Game</button>
+			<button id="loadGameBtn">Load Game</button>
+			<button id="deleteSaveBtn">Delete Save</button>
+		</div>
+	</div>
 	<div id="saveManager">
-		<p>(Game autosaves every 30 seconds.)</p>
-		<button id="saveGameBtn">Save Game</button>
-		<button id="loadGameBtn">Load Game</button>
-		<button id="deleteSaveBtn">Delete Save</button>
+		
 	</div>
 
 	<script type="text/javascript" src="js/main.js"></script>
