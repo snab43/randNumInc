@@ -1,4 +1,6 @@
 var numbers = 0;
+var gameSpeed = 1000;
+
 var clickMin = 1;
 var clickMax = 5;
 var clickMinCost = 35;
@@ -15,19 +17,19 @@ console.log("Loaded scripts");
 updateUI();
 
 function updateUI() {
-	document.getElementById('numbers').innerHTML = numbers;
+	document.getElementById('numbers').innerHTML = numberWithCommas(numbers);
 	
-	document.getElementById('clickMin').innerHTML = clickMin;
-	document.getElementById('clickMax').innerHTML = clickMax;
-	document.getElementById('clickMinCost').innerHTML = clickMinCost;
-	document.getElementById('clickMaxCost').innerHTML = clickMaxCost;
+	document.getElementById('clickMin').innerHTML = numberWithCommas(clickMin);
+	document.getElementById('clickMax').innerHTML = numberWithCommas(clickMax);
+	document.getElementById('clickMinCost').innerHTML = numberWithCommas(clickMinCost);
+	document.getElementById('clickMaxCost').innerHTML = numberWithCommas(clickMaxCost);
 
-	document.getElementById('autoClickers').innerHTML = autoClickers;
-	document.getElementById('autoClickerCost').innerHTML = autoClickerCost;
-	document.getElementById('autoClickerMin').innerHTML = autoClickerMin;
-	document.getElementById('autoClickerMax').innerHTML = autoClickerMax;
-	document.getElementById('autoClickerMinCost').innerHTML = autoClickerMinCost;
-	document.getElementById('autoClickerMaxCost').innerHTML = autoClickerMaxCost;
+	document.getElementById('autoClickers').innerHTML = numberWithCommas(autoClickers);
+	document.getElementById('autoClickerCost').innerHTML = numberWithCommas(autoClickerCost);
+	document.getElementById('autoClickerMin').innerHTML = numberWithCommas(autoClickerMin);
+	document.getElementById('autoClickerMax').innerHTML = numberWithCommas(autoClickerMax);
+	document.getElementById('autoClickerMinCost').innerHTML = numberWithCommas(autoClickerMinCost);
+	document.getElementById('autoClickerMaxCost').innerHTML = numberWithCommas(autoClickerMaxCost);
 
 	if (clickMin >= clickMax) {
 		document.getElementById('clickMinButton').disabled = true;
@@ -110,13 +112,18 @@ function increaseAutoClickerMax() {
 window.setInterval(function() {
 	autoClicker();
 	updateUI();
-}, 1000);
+}, gameSpeed);
 
 // Utility functions
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;;
 }
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// Debug
 function debug_increaseNumbers(num) {
 	numbers += num;
 	updateUI();
