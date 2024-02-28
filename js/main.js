@@ -1,4 +1,4 @@
-var numbers = 10000;
+var numbers = 0;
 var clickMin = 1;
 var clickMax = 5;
 var clickMinCost = 35;
@@ -115,4 +115,9 @@ window.setInterval(function() {
 // Utility functions
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;;
+}
+
+function debug_increaseNumbers(num) {
+	numbers += num;
+	updateUI();
 }
