@@ -1,5 +1,9 @@
 // const variables
-const LAST_RESULTS_LENGTH = 60;
+const lastResultsLength = 60;
+const unlockPrimeNumbersCost = 500;
+const unlockTenNumbersCost = 5000;
+const unlockAutoclickersCost = 250;
+const unlockSuperAutoclickersCost = 2500;
 
 // stats
 let stats = {
@@ -65,14 +69,20 @@ const deleteSaveBtn = document.getElementById('deleteSaveBtn');
 // UI Update
 
 function updateUI() {
+	// Stats
 	document.getElementById('numbers').innerText = numWithCommas(stats.numbers);
 	document.getElementById('primeNumbers').innerText = numWithCommas(stats.primeNumbers);
 	document.getElementById('tenNumbers').innerText = numWithCommas(stats.tenNumbers);
+
+	document.getElementById('numbersPerSec').innerText = numWithCommas(deltaNumber);
+	document.getElementById('primeNumbersPerSec').innerText = numWithCommas(deltaPrimeNumber);
+	document.getElementById('tenNumbersPerSec').innerText = numWithCommas(deltaTenNumber);
 
 	document.getElementById('totalNumbers').innerText = numWithCommas(stats.totalNumbers);
 	document.getElementById('numbersLeft').innerText = numWithCommas(stats.numbersLeft);
 	document.getElementById('totalTime').innerText = formatTime(stats.totalTime);
 	
+	// Manual Clicks
 	document.getElementById('clickMin').innerText = numWithCommas(stats.clickMin);
 	document.getElementById('clickMax').innerText = numWithCommas(stats.clickMax);
 	document.getElementById('clickMinCost').innerText = numWithCommas(stats.clickMinCost);
@@ -87,6 +97,7 @@ function updateUI() {
 		}
 	}).join(", ");
 
+	// Autoclickers
 	document.getElementById('autoclickers').innerText = numWithCommas(stats.autoclickers);
 	document.getElementById('autoclickerCost').innerText = numWithCommas(stats.autoclickerCost);
 	document.getElementById('autoclickerMin').innerText = numWithCommas(stats.autoclickerMin);
@@ -103,6 +114,7 @@ function updateUI() {
 		}
 	}).join(", ");
 
+	// Super Autoclickers
 	document.getElementById('superAutoclickers').innerText = numWithCommas(stats.superAutoclickers);
 	document.getElementById('superAutoclickerCost').innerText = numWithCommas(stats.superAutoclickerCost);
 	document.getElementById('superAutoclickerMin').innerText = numWithCommas(stats.superAutoclickerMin);
@@ -119,10 +131,12 @@ function updateUI() {
 		}
 	}).join(", ");
 
-	document.getElementById('numbersPerSec').innerText = numWithCommas(deltaNumber);
-	document.getElementById('primeNumbersPerSec').innerText = numWithCommas(deltaPrimeNumber);
-	document.getElementById('tenNumbersPerSec').innerText = numWithCommas(deltaTenNumber);
-	
+	// Unlock Costs
+	document.getElementById('unlockPrimeNumbersCost').innerText = unlockPrimeNumbersCost;
+	document.getElementById('unlockTenNumbersCost').innerText = unlockTenNumbersCost;
+	document.getElementById('unlockAutoclickersCost').innerText = unlockAutoclickersCost;
+	document.getElementById('unlockSuperAutoclickersCost').innerText = unlockSuperAutoclickersCost;
+
 	// Hidden stuff
 	document.getElementById('unlockPrimeNumbers').hidden = !stats.unlockPrimeNumbers;
 	document.getElementById('unlockTenNumbers').hidden = !stats.unlockTenNumbers;
@@ -143,14 +157,14 @@ function updateUI() {
 	superAutoclickerMinBtn.disabled = stats.superAutoclickerMin >= stats.superAutoclickerMax || stats.superAutoclickerMinCost > stats.primeNumbers || stats.superAutoclickers == 0;
 	superAutoclickerMaxBtn.disabled = stats.superAutoclickerMaxCost > stats.primeNumbers || stats.superAutoclickers == 0;
 
-	unlockPrimeNumbersBtn.disabled = 1000 > stats.numbers;
-	unlockPrimeNumbersBtn.style.display = 500 > stats.totalNumbers || stats.unlockPrimeNumbers ? "none" : "block";
-	unlockTenNumbersBtn.disabled = 5000 > stats.primeNumbers;
-	unlockTenNumbersBtn.style.display = 10000 > stats.totalNumbers || stats.unlockTenNumbers ? "none" : "block";
-	unlockAutoclickersBtn.disabled = 500 > stats.numbers;
-	unlockAutoclickersBtn.style.display = 250 > stats.totalNumbers || stats.unlockAutoclickers ? "none" : "block";
-	unlockSuperAutoclickersBtn.disabled = 2500 > stats.primeNumbers;
-	unlockSuperAutoclickersBtn.style.display = 50000 > stats.totalNumbers || stats.unlockSuperAutoclickers ? "none" : "block";
+	unlockPrimeNumbersBtn.disabled = unlockPrimeNumbersCost > stats.numbers;
+	unlockPrimeNumbersBtn.style.display = unlockPrimeNumbersCost > stats.totalNumbers || stats.unlockPrimeNumbers ? "none" : "block";
+	unlockTenNumbersBtn.disabled = unlockTenNumbersCost > stats.primeNumbers;
+	unlockTenNumbersBtn.style.display = unlockTenNumbersCost > stats.totalNumbers || stats.unlockTenNumbers ? "none" : "block";
+	unlockAutoclickersBtn.disabled = unlockAutoclickersCost > stats.numbers;
+	unlockAutoclickersBtn.style.display = unlockAutoclickersCost > stats.totalNumbers || stats.unlockAutoclickers ? "none" : "block";
+	unlockSuperAutoclickersBtn.disabled = unlockSuperAutoclickersCost > stats.primeNumbers;
+	unlockSuperAutoclickersBtn.style.display = unlockSuperAutoclickersCost > stats.totalNumbers || stats.unlockSuperAutoclickers ? "none" : "block";
 }
 
 // ====================================================
@@ -172,7 +186,7 @@ clickBtn.addEventListener("click", () => {
 	stats.numbersLeft -= num;
 	stats.clickResults.unshift(num);
 	
-	if (stats.clickResults.length > LAST_RESULTS_LENGTH) {
+	if (stats.clickResults.length > lastResultsLength) {
 		stats.clickResults.pop();
 	}
 	
@@ -255,32 +269,32 @@ superAutoclickerMaxBtn.addEventListener("click", () => {
 
 // Unlocks
 unlockPrimeNumbersBtn.addEventListener("click", () => {
-	if (stats.numbers >= 1000) {
-		stats.numbers -= 1000;
+	if (stats.numbers >= unlockPrimeNumbersCost) {
+		stats.numbers -= unlockPrimeNumbersCost;
 		stats.unlockPrimeNumbers = true;
 	}
 	updateUI();
 });
 
 unlockTenNumbersBtn.addEventListener("click", () => {
-	if (stats.primeNumbers >= 5000) {
-		stats.primeNumbers -= 5000;
+	if (stats.primeNumbers >= unlockTenNumbersCost) {
+		stats.primeNumbers -= unlockTenNumbersCost;
 		stats.unlockTenNumbers = true;
 	}
 	updateUI();
 });
 
 unlockAutoclickersBtn.addEventListener("click", () => {
-	if (stats.numbers >= 500) {
-		stats.numbers -= 500;
+	if (stats.numbers >= unlockAutoclickersCost) {
+		stats.numbers -= unlockAutoclickersCost;
 		stats.unlockAutoclickers = true;
 	}
 	updateUI();
 });
 
 unlockSuperAutoclickersBtn.addEventListener("click", () => {
-	if (stats.primeNumbers >= 2500) {
-		stats.primeNumbers -= 2500;
+	if (stats.primeNumbers >= unlockSuperAutoclickersCost) {
+		stats.primeNumbers -= unlockSuperAutoclickersCost;
 		stats.unlockSuperAutoclickers = true;
 	}
 	updateUI();
@@ -334,7 +348,7 @@ window.setInterval(function() {
 		stats.numbersLeft -= num;
 		stats.autoclickerResults.unshift(num);
 
-		if (stats.autoclickerResults.length > LAST_RESULTS_LENGTH) {
+		if (stats.autoclickerResults.length > lastResultsLength) {
 			stats.autoclickerResults.pop();
 		}
 	}
@@ -355,7 +369,7 @@ window.setInterval(function() {
 		stats.numbersLeft -= num;
 		stats.superAutoclickerResults.unshift(num);
 
-		if (stats.superAutoclickerResults.length > LAST_RESULTS_LENGTH) {
+		if (stats.superAutoclickerResults.length > lastResultsLength) {
 			stats.superAutoclickerResults.pop();
 		}
 	}

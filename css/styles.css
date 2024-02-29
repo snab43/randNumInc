@@ -11,3 +11,11 @@ h1 {
 .window {
 	margin-bottom: 12px;
 }
+
+.primeColor {
+	color: blue;
+}
+
+.tenColor {
+	color: red;
+}

@@ -38,8 +38,8 @@
 			</div>
 			<div class="window-body">
 				<div>Numbers: <span id="numbers"></span> (<span id="numbersPerSec">0</span>/s)</div>
-				<div id="unlockPrimeNumbers" style="color: blue;" hidden>Prime Numbers: <span id="primeNumbers"></span> (<span id="primeNumbersPerSec">0</span>/s)</div>
-				<div id="unlockTenNumbers" style="color: red;" hidden>10^x Numbers: <span id="tenNumbers"></span> (<span id="tenNumbersPerSec">0</span>/s)</div>
+				<div id="unlockPrimeNumbers" class="primeColor" hidden>Prime Numbers: <span id="primeNumbers"></span> (<span id="primeNumbersPerSec">0</span>/s)</div>
+				<div id="unlockTenNumbers" class="tenColor" hidden>10^x Numbers: <span id="tenNumbers"></span> (<span id="tenNumbersPerSec">0</span>/s)</div>
 			</div>
 
 			<div class="status-bar">
@@ -55,10 +55,10 @@
 				<div class="title-bar-text">Unlocks</div>
 			</div>
 			<div class="window-body">
-				<button id="unlockPrimeNumbersBtn">Unlock Prime Numbers (Cost: 1,000 Numbers)</button>
-				<button id="unlockTenNumbersBtn">Unlock 10^x Numbers (Cost: 5,000 Prime Numbers)</button>
-				<button id="unlockAutoclickersBtn">Unlock Autoclickers (Cost: 500 Numbers)</button>
-				<button id="unlockSuperAutoclickersBtn">Unlock Super Autoclickers (Cost: 2,500 Prime Numbers)</button>
+				<button id="unlockPrimeNumbersBtn">Unlock Prime Numbers (Cost: <span id="unlockPrimeNumbersCost"></span> Numbers)</button>
+				<button id="unlockTenNumbersBtn">Unlock 10^x Numbers (Cost: <span class="primeColor"><span id="unlockTenNumbersCost"></span> Prime Numbers</span>)</button>
+				<button id="unlockAutoclickersBtn">Unlock Autoclickers (Cost: <span id="unlockAutoclickersCost"></span> Numbers)</button>
+				<button id="unlockSuperAutoclickersBtn">Unlock Super Autoclickers (Cost: <span class="primeColor"><span id="unlockSuperAutoclickersCost"></span> Prime Numbers</span>)</button>
 			</div>
 		</div>
 		
@@ -90,7 +90,7 @@
 			</div>
 			<div class="window-body">
 				<p>Autoclickers: <span id="autoclickers"></span></p>
-				<button id="autoclickerBuyBtn">Buy an Autoclicker (Cost: <span style="color: blue;"><span id="autoclickerCost"></span> Prime Numbers</span>)</button>
+				<button id="autoclickerBuyBtn">Buy an Autoclicker (Cost: <span class="primeColor"><span id="autoclickerCost"></span> Prime Numbers</span>)</button>
 				<br/><br/>
 				<div id="boughtAutoclicker" hidden>
 					<p>Possible range: <span id="autoclickerMin"></span> - <span id="autoclickerMax"></span></p>
@@ -114,7 +114,7 @@
 			</div>
 			<div class="window-body">
 				<p>Super Autoclickers: <span id="superAutoclickers"></span></p>
-				<button id="superAutoclickerBuyBtn">Buy a Super Autoclicker (Cost: <span style="color: red;"><span id="superAutoclickerCost"></span> 10^x Numbers)</span></button>
+				<button id="superAutoclickerBuyBtn">Buy a Super Autoclicker (Cost: <span class="tenColor"><span id="superAutoclickerCost"></span> 10^x Numbers)</span></button>
 				<br/><br/>
 				<div id="boughtSuperAutoclicker" hidden>
 					<p>Possible range: <span id="superAutoclickerMin"></span> - <span id="superAutoclickerMax"></span></p>
@@ -124,8 +124,8 @@
 							<span id="superAutoclickerResults"></span>
 						</div>
 					</fieldset>
-					<button id="superAutoclickerMinBtn">Increase Min (Cost: <span style="color: blue;"><span id="superAutoclickerMinCost"></span> Prime Numbers</span>)</button>
-					<button id="superAutoclickerMaxBtn">Increase Max (Cost: <span style="color: blue;"><span id="superAutoclickerMaxCost"></span> Prime Numbers</span>)</button>
+					<button id="superAutoclickerMinBtn">Increase Min (Cost: <span class="primeColor"><span id="superAutoclickerMinCost"></span> Prime Numbers</span>)</button>
+					<button id="superAutoclickerMaxBtn">Increase Max (Cost: <span class="primeColor"><span id="superAutoclickerMaxCost"></span> Prime Numbers</span>)</button>
 				</div>
 			</div>
 		</div>
@@ -155,7 +155,7 @@
 			});
 
 			document.querySelectorAll('.version').forEach((element) => {
-				element.textContent = "0.3.0";
+				element.textContent = "0.3.1";
 			});
 		</script>
 	</div>
