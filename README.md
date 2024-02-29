@@ -18,7 +18,7 @@ The game is an unfolding incremental. To start, hit "Get a Number" which will ge
 You can also upgrade the minimum and maximum range for your number generator to get better values.
 
 <details>
-<summary><h3>Spoilers</h3></summary>
+<h3><summary>Spoilers</summary></h3>
 
 ### Number Types
 
@@ -28,7 +28,7 @@ There are 2 additional number types to unlock for a total of 3:
 2. [Prime Numbers](https://en.wikipedia.org/wiki/Prime_number) (2, 3, 5, 7, 11, 13, 17, 19, 23, etc.)
 3. 10^x Numbers (1, 10, 100, 1000, 10000, 100000, etc.)
 
-When you unlock these number types, numbers that are prime will be added to your "Prime Number" resource pool instead, and the same with 10^x numbers.
+When you unlock these number types, numbers that are prime will be added to your Prime Number resource pool instead, and the same with 10^x Numbers.
 
 ### Unlocks
 
