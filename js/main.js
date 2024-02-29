@@ -315,6 +315,7 @@ function checkSaveExists() {
 function saveGame() {
 	localStorage.setItem("save", JSON.stringify(stats));
 	checkSaveExists();
+	console.log("Game saved.");
 }
 
 function loadGame() {
@@ -327,6 +328,7 @@ function loadGame() {
 			}
 		});
 		updateUI();
+		console.log("Game loaded.");
 	} else {
 		console.log("No save file found.");
 	}

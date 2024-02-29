@@ -18,8 +18,8 @@
 		</div>
 		<div class="window-body">
 			<div id="numbersContainer">Numbers: <span id="numbers"></span> (<span id="numbersPerSec">0</span>/s)</div>
-			<div id="primeNumbersContainer">Prime Numbers: <span id="primeNumbers" style="color: blue;"></span> (<span id="primeNumbersPerSec" style="color: blue;">0</span>/s)</div>
-			<div id="TenNumbersContainer">10^x Numbers: <span id="tenNumbers" style="color: red;"></span> (<span id="tenNumbersPerSec" style="color: red;">0</span>/s)</div>
+			<div id="primeNumbersContainer" style="color: blue;">Prime Numbers: <span id="primeNumbers"></span> (<span id="primeNumbersPerSec">0</span>/s)</div>
+			<div id="TenNumbersContainer" style="color: red;">10^x Numbers: <span id="tenNumbers"></span> (<span id="tenNumbersPerSec">0</span>/s)</div>
 		</div>
 
 		<div class="status-bar">
@@ -55,7 +55,7 @@
 		</div>
 		<div class="window-body">
 			<p>Autoclickers: <span id="autoclickers"></span></p>
-			<button id="autoclickerBuyBtn">Buy an Autoclicker (Cost: <span id="autoclickerCost"></span> Prime Numbers)</button>
+			<button id="autoclickerBuyBtn">Buy an Autoclicker (Cost: <span style="color: blue;"><span id="autoclickerCost"></span> Prime Numbers</span>)</button>
 			<br/><br/>
 			<div id="boughtAutoclicker" hidden>
 				<p>Possible range: <span id="autoclickerMin"></span> - <span id="autoclickerMax"></span></p>
@@ -78,7 +78,7 @@
 		</div>
 		<div class="window-body">
 			<p>Super Autoclickers: <span id="superAutoclickers"></span></p>
-			<button id="superAutoclickerBuyBtn">Buy a Super Autoclicker (Cost: <span id="superAutoclickerCost"></span> 10^x Numbers)</button>
+			<button id="superAutoclickerBuyBtn">Buy a Super Autoclicker (Cost: <span style="color: red;"><span id="superAutoclickerCost"></span> 10^x Numbers)</span></button>
 			<br/><br/>
 			<div id="boughtSuperAutoclicker" hidden>
 				<p>Possible range: <span id="superAutoclickerMin"></span> - <span id="superAutoclickerMax"></span></p>
@@ -89,8 +89,8 @@
 					</div>
 				</fieldset>
 				<br/>
-				<button id="superAutoclickerMinBtn">Increase Min (Cost: <span id="superAutoclickerMinCost"></span> Prime Numbers)</button>
-				<button id="superAutoclickerMaxBtn">Increase Max (Cost: <span id="superAutoclickerMaxCost"></span> Prime Numbers)</button>
+				<button id="superAutoclickerMinBtn">Increase Min (Cost: <span style="color: blue;"><span id="superAutoclickerMinCost"></span> Prime Numbers</span>)</button>
+				<button id="superAutoclickerMaxBtn">Increase Max (Cost: <span style="color: blue;"><span id="superAutoclickerMaxCost"></span> Prime Numbers</span>)</button>
 			</div>
 		</div>
 	</div>
@@ -107,7 +107,7 @@
 		</div>
 		<div class="status-bar">
 			<p class="status-bar-field">randNumInc.exe</p>
-			<p class="status-bar-field">v0.2.3</p>
+			<p class="status-bar-field">v0.2.4</p>
 			<p class="status-bar-field">Copyright &copy; <span id="year"></span></p>
 		</div>
 	</div>
