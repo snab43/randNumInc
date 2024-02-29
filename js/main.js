@@ -256,7 +256,7 @@ window.setInterval(function() {
 	deltaPrimeNumber = stats.primeNumbers - lastPrimeNumber;
 	lastPrimeNumber = stats.primeNumbers;
 
-	deltaTenNumber = stats.deltaNumbers - lastDeltaNumber;
+	deltaTenNumber = stats.tenNumbers - lastTenNumber;
 	lastTenNumber = stats.tenNumbers;
 
 	stats.totalTime += 1;
