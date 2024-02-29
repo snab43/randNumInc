@@ -22,11 +22,6 @@
 			<p>Thanks for playing!</p>
 			<p>Your time: <span id="finalTime"></span></p>
 		</div>
-		<div class="status-bar">
-			<p class="status-bar-field">randNumInc.exe</p>
-			<p class="status-bar-field">v<span class="version"></span></p>
-			<p class="status-bar-field">Copyright &copy; <span class="year"></span></p>
-		</div>
 	</div>
 
 	<!-- Game -->
@@ -59,6 +54,8 @@
 				<button id="unlockTenNumbersBtn">Unlock 10^x Numbers (Cost: <span class="primeColor"><span id="unlockTenNumbersCost"></span> Prime Numbers</span>)</button>
 				<button id="unlockAutoclickersBtn">Unlock Autoclickers (Cost: <span id="unlockAutoclickersCost"></span> Numbers)</button>
 				<button id="unlockSuperAutoclickersBtn">Unlock Super Autoclickers (Cost: <span class="primeColor"><span id="unlockSuperAutoclickersCost"></span> Prime Numbers</span>)</button>
+				<div id="noUnlocksVisible" hidden>Keep progressing!</div>
+				<div id="unlockedEverything" hidden>Everything unlocked!</div>
 			</div>
 		</div>
 		
@@ -129,35 +126,29 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- Save File -->
-		<div class="window">
-			<div class="title-bar">
-				<div class="title-bar-text">Save File</div>
-			</div>
-			<div class="window-body">
-				<p>Game auto-saves every 30 seconds.</p>
-				<button id="saveGameBtn">Save Game</button>
-				<button id="loadGameBtn">Load Game</button>
-				<button id="deleteSaveBtn">Delete Save</button>
-			</div>
-			<div class="status-bar">
-				<p class="status-bar-field">randNumInc.exe</p>
-				<p class="status-bar-field">v<span class="version"></span></p>
-				<p class="status-bar-field">Copyright &copy; <span class="year"></span></p>
-			</div>
-		</div>
-
-		<script type="text/javascript" src="js/main.js"></script>
-		<script>
-			document.querySelectorAll('.year').forEach((element) => {
-				element.textContent = new Date().getFullYear();
-			});
-
-			document.querySelectorAll('.version').forEach((element) => {
-				element.textContent = "0.3.2";
-			});
-		</script>
 	</div>
+
+	<!-- Save File -->
+	<div class="window">
+		<div class="title-bar">
+			<div class="title-bar-text">Save File</div>
+		</div>
+		<div class="window-body">
+			<p>Game auto-saves every 30 seconds.</p>
+			<button id="saveGameBtn">Save Game</button>
+			<button id="loadGameBtn">Load Game</button>
+			<button id="deleteSaveBtn">Delete Save</button>
+		</div>
+		<div class="status-bar">
+			<p class="status-bar-field">randNumInc.exe</p>
+			<p class="status-bar-field">v1.0.0</p>
+			<p class="status-bar-field">Copyright &copy; <span id="year"></span></p>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/main.js"></script>
+	<script>
+		document.getElementById('year').innerText = new Date().getFullYear();
+	</script>
 </body>
 </html>

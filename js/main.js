@@ -1,9 +1,11 @@
 // const variables
 const lastResultsLength = 60;
-const unlockPrimeNumbersCost = 500;
-const unlockTenNumbersCost = 5000;
-const unlockAutoclickersCost = 250;
-const unlockSuperAutoclickersCost = 2500;
+const unlockPrimeNumbersCost = 400;
+const unlockTenNumbersCost = 3000;
+const unlockAutoclickersCost = 200;
+const unlockSuperAutoclickersCost = 2000;
+
+let gameOver = false;
 
 // stats
 let stats = {
@@ -12,7 +14,7 @@ let stats = {
 	tenNumbers: 0,
 
 	totalNumbers: 0,
-	numbersLeft: 100000000,
+	numbersLeft: 1000000,
 	totalTime: 0,
 
 	unlockPrimeNumbers: false,
@@ -21,25 +23,25 @@ let stats = {
 	unlockSuperAutoclickers: false,
 	
 	clickMin: 1,
-	clickMax: 5,
-	clickMinCost: 35,
-	clickMaxCost: 65,
+	clickMax: 10,
+	clickMinCost: 20,
+	clickMaxCost: 30,
 	clickResults: [],
 
 	autoclickers: 0,
 	autoclickerCost: 100,
-	autoclickerMin: 1,
-	autoclickerMax: 10,
-	autoclickerMinCost: 80,
-	autoclickerMaxCost: 50,
+	autoclickerMin: 10,
+	autoclickerMax: 100,
+	autoclickerMinCost: 35,
+	autoclickerMaxCost: 25,
 	autoclickerResults: [],
 
 	superAutoclickers: 0,
 	superAutoclickerCost: 100,
-	superAutoclickerMin: 10,
-	superAutoclickerMax: 100,
-	superAutoclickerMinCost: 200,
-	superAutoclickerMaxCost: 300,
+	superAutoclickerMin: 100,
+	superAutoclickerMax: 1000,
+	superAutoclickerMinCost: 500,
+	superAutoclickerMaxCost: 500,
 	superAutoclickerResults: []
 };
 
@@ -69,6 +71,16 @@ const deleteSaveBtn = document.getElementById('deleteSaveBtn');
 // UI Update
 
 function updateUI() {
+	if (stats.numbersLeft <= 0) {
+		if (!gameOver) {
+			console.log("Game over!");
+			gameOver = true;
+			document.getElementById('game').hidden = true;
+			document.getElementById('endScreen').hidden = false;
+			document.getElementById('finalTime').innerText = formatTime(stats.totalTime);
+		}
+	};
+
 	// Stats
 	document.getElementById('numbers').innerText = numWithCommas(stats.numbers);
 	document.getElementById('primeNumbers').innerText = numWithCommas(stats.primeNumbers);
@@ -200,13 +212,27 @@ function updateUI() {
 	superAutoclickerMaxBtn.disabled = stats.superAutoclickerMaxCost > stats.primeNumbers || stats.superAutoclickers == 0;
 
 	unlockPrimeNumbersBtn.disabled = unlockPrimeNumbersCost > stats.numbers;
-	unlockPrimeNumbersBtn.style.display = unlockPrimeNumbersCost > stats.totalNumbers || stats.unlockPrimeNumbers ? "none" : "block";
 	unlockTenNumbersBtn.disabled = unlockTenNumbersCost > stats.primeNumbers;
-	unlockTenNumbersBtn.style.display = unlockTenNumbersCost > stats.totalNumbers || stats.unlockTenNumbers ? "none" : "block";
 	unlockAutoclickersBtn.disabled = unlockAutoclickersCost > stats.numbers;
-	unlockAutoclickersBtn.style.display = unlockAutoclickersCost > stats.totalNumbers || stats.unlockAutoclickers ? "none" : "block";
 	unlockSuperAutoclickersBtn.disabled = unlockSuperAutoclickersCost > stats.primeNumbers;
+
+	unlockPrimeNumbersBtn.style.display = unlockPrimeNumbersCost > stats.totalNumbers || stats.unlockPrimeNumbers ? "none" : "block";
+	unlockTenNumbersBtn.style.display = unlockTenNumbersCost > stats.totalNumbers || stats.unlockTenNumbers ? "none" : "block";
+	unlockAutoclickersBtn.style.display = unlockAutoclickersCost > stats.totalNumbers || stats.unlockAutoclickers ? "none" : "block";
 	unlockSuperAutoclickersBtn.style.display = unlockSuperAutoclickersCost > stats.totalNumbers || stats.unlockSuperAutoclickers ? "none" : "block";
+
+	if (unlockPrimeNumbersBtn.style.display === "none" && unlockTenNumbersBtn.style.display === "none" && unlockAutoclickersBtn.style.display === "none" && unlockSuperAutoclickersBtn.style.display === "none"
+	&& (!stats.unlockPrimeNumbers || !stats.unlockTenNumbers || !stats.unlockAutoclickers || !stats.unlockSuperAutoclickers)) {
+		document.getElementById('noUnlocksVisible').hidden = false;
+	} else {
+		document.getElementById('noUnlocksVisible').hidden = true;
+	}
+
+	if (stats.unlockPrimeNumbers && stats.unlockTenNumbers && stats.unlockAutoclickers && stats.unlockSuperAutoclickers) {
+		document.getElementById('unlockedEverything').hidden = false;
+	} else {
+		document.getElementById('unlockedEverything').hidden = true;
+	}
 }
 
 // ====================================================
@@ -239,7 +265,7 @@ clickMinBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.clickMinCost) {
 		stats.clickMin += 1;
 		stats.numbers -= stats.clickMinCost;
-		stats.clickMinCost += Math.floor(10 * Math.pow(1.05, stats.clickMin));
+		stats.clickMinCost += Math.floor(5 * Math.pow(1.05, stats.clickMin));
 	}
 	updateUI();
 });
@@ -248,7 +274,7 @@ clickMaxBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.clickMaxCost) {
 		stats.clickMax += 1;
 		stats.numbers -= stats.clickMaxCost;
-		stats.clickMaxCost += Math.floor(8 * Math.pow(1.025, stats.clickMax));
+		stats.clickMaxCost += Math.floor(5 * Math.pow(1.05, stats.clickMax));
 	}	
 	updateUI();
 });
@@ -267,7 +293,7 @@ autoclickerMinBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.autoclickerMinCost) {
 		stats.autoclickerMin += 1;
 		stats.numbers -= stats.autoclickerMinCost;
-		stats.autoclickerMinCost += Math.floor(10 * Math.pow(1.15, stats.autoclickerMin));
+		stats.autoclickerMinCost += Math.floor(5 * Math.pow(1.05, stats.autoclickerMin));
 	}
 	updateUI();
 });
@@ -276,7 +302,7 @@ autoclickerMaxBtn.addEventListener("click", () => {
 	if (stats.numbers >= stats.autoclickerMaxCost) {
 		stats.autoclickerMax += 1;
 		stats.numbers -= stats.autoclickerMaxCost;
-		stats.autoclickerMaxCost += Math.floor(8 * Math.pow(1.05, stats.autoclickerMax));
+		stats.autoclickerMaxCost += Math.floor(5 * Math.pow(1.025, stats.autoclickerMax));
 	}
 	updateUI();
 });
@@ -295,7 +321,7 @@ superAutoclickerMinBtn.addEventListener("click", () => {
 	if (stats.primeNumbers >= stats.superAutoclickerMinCost) {
 		stats.superAutoclickerMin += 1;
 		stats.primeNumbers -= stats.superAutoclickerMinCost;
-		stats.superAutoclickerMinCost += Math.floor(5 * Math.pow(1.15, stats.superAutoclickerMin));
+		stats.superAutoclickerMinCost += Math.floor(2 * Math.pow(stats.superAutoclickerMin / 50, 1.005));
 	}
 	updateUI();
 });
@@ -304,7 +330,7 @@ superAutoclickerMaxBtn.addEventListener("click", () => {
 	if (stats.primeNumbers >= stats.superAutoclickerMaxCost) {
 		stats.superAutoclickerMax += 1;
 		stats.primeNumbers -= stats.superAutoclickerMaxCost;
-		stats.superAutoclickerMaxCost += Math.floor(5 * Math.pow(1.05, stats.superAutoclickerMax));
+		stats.superAutoclickerMaxCost += Math.floor(2 * Math.pow(stats.superAutoclickerMax / 50, 1.015));
 	}
 	updateUI();
 });
