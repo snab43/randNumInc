@@ -8,8 +8,17 @@ html {
 	touch-action: manipulation !important;
 }
 
+.titleContainer {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
 h1 {
-	font-size: 24px;
+	font-size: 20px;
+	font-family: "Pixelated MS Sans Serif", Arial;
+	font-weight: 400;
+	color: #000080;
 }
 
 button {

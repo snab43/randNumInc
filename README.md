@@ -54,7 +54,7 @@ HTML, CSS, and JS.
 
 ## Screenshots
 
-![randNumInc.exe](https://i.postimg.cc/PJQhRWGK/Capture.png)
+![randNumInc.exe](https://i.postimg.cc/8kb8f8Wr/Capture.png)
 
 ## Acknowledgements
 
