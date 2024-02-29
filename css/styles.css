@@ -4,12 +4,15 @@ html {
 	margin: auto;
 }
 
+* {
+	touch-action: manipulation !important;
+}
+
 h1 {
 	font-size: 24px;
 }
 
 button {
-	touch-action: manipulation !important;
 	margin-right: 4px;
 }
 
