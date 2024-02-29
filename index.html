@@ -12,14 +12,15 @@
 <body>
 	<h1>randNumInc.exe</h1>
 
+	<!-- Stats -->
 	<div class="window">
 		<div class="title-bar">
 			<div class="title-bar-text">Stats</div>
 		</div>
 		<div class="window-body">
-			<div id="numbersContainer">Numbers: <span id="numbers"></span> (<span id="numbersPerSec">0</span>/s)</div>
-			<div id="primeNumbersContainer" style="color: blue;">Prime Numbers: <span id="primeNumbers"></span> (<span id="primeNumbersPerSec">0</span>/s)</div>
-			<div id="TenNumbersContainer" style="color: red;">10^x Numbers: <span id="tenNumbers"></span> (<span id="tenNumbersPerSec">0</span>/s)</div>
+			<div>Numbers: <span id="numbers"></span> (<span id="numbersPerSec">0</span>/s)</div>
+			<div id="unlockPrimeNumbers" style="color: blue;" hidden>Prime Numbers: <span id="primeNumbers"></span> (<span id="primeNumbersPerSec">0</span>/s)</div>
+			<div id="unlockTenNumbers" style="color: red;" hidden>10^x Numbers: <span id="tenNumbers"></span> (<span id="tenNumbersPerSec">0</span>/s)</div>
 		</div>
 
 		<div class="status-bar">
@@ -27,7 +28,21 @@
 			<p class="status-bar-field">Total Time: <span id="totalTime"></span></p>
 		</div>
 	</div>
+
+	<!-- Unlocks -->
+	<div class="window" id="unlockUnlocks">
+		<div class="title-bar">
+			<div class="title-bar-text">Unlocks</div>
+		</div>
+		<div class="window-body">
+			<button id="unlockPrimeNumbersBtn">Unlock Prime Numbers (Cost: 1,000 Numbers)</button>
+			<button id="unlockTenNumbersBtn">Unlock 10^x Numbers (Cost: 5,000 Prime Numbers)</button>
+			<button id="unlockAutoclickersBtn">Unlock Autoclickers (Cost: 500 Numbers)</button>
+			<button id="unlockSuperAutoclickersBtn">Unlock Super Autoclickers (Cost: 2,500 Prime Numbers)</button>
+		</div>
+	</div>
 	
+	<!-- Manual Clicks -->
 	<div class="window">
 		<div class="title-bar">
 			<div class="title-bar-text">Manual Clicks</div>
@@ -48,8 +63,8 @@
 		</div>
 	</div>
 
-
-	<div class="window">
+	<!-- Autoclickers -->
+	<div class="window" id="unlockAutoclickers" hidden>
 		<div class="title-bar">
 			<div class="title-bar-text">Autoclickers</div>
 		</div>
@@ -72,7 +87,8 @@
 		</div>
 	</div>
 
-	<div class="window">
+	<!-- Super Autoclickers -->
+	<div class="window" id="unlockSuperAutoclickers" hidden>
 		<div class="title-bar">
 			<div class="title-bar-text">Super Autoclickers</div>
 		</div>
@@ -88,13 +104,13 @@
 						<span id="superAutoclickerResults"></span>
 					</div>
 				</fieldset>
-				<br/>
 				<button id="superAutoclickerMinBtn">Increase Min (Cost: <span style="color: blue;"><span id="superAutoclickerMinCost"></span> Prime Numbers</span>)</button>
 				<button id="superAutoclickerMaxBtn">Increase Max (Cost: <span style="color: blue;"><span id="superAutoclickerMaxCost"></span> Prime Numbers</span>)</button>
 			</div>
 		</div>
 	</div>
 
+	<!-- Save File -->
 	<div class="window">
 		<div class="title-bar">
 			<div class="title-bar-text">Save File</div>
@@ -107,7 +123,7 @@
 		</div>
 		<div class="status-bar">
 			<p class="status-bar-field">randNumInc.exe</p>
-			<p class="status-bar-field">v0.2.4</p>
+			<p class="status-bar-field">v0.3.0</p>
 			<p class="status-bar-field">Copyright &copy; <span id="year"></span></p>
 		</div>
 	</div>

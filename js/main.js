@@ -1,5 +1,5 @@
 // const variables
-const LAST_RESULTS_LENGTH = 100;
+const LAST_RESULTS_LENGTH = 60;
 
 // stats
 let stats = {
@@ -9,6 +9,11 @@ let stats = {
 
 	totalNumbers: 0,
 	totalTime: 0,
+
+	unlockPrimeNumbers: false,
+	unlockTenNumbers: false,
+	unlockAutoclickers: false,
+	unlockSuperAutoclickers: false,
 	
 	clickMin: 1,
 	clickMax: 5,
@@ -26,10 +31,10 @@ let stats = {
 
 	superAutoclickers: 0,
 	superAutoclickerCost: 1000,
-	superAutoclickerMin: 50,
-	superAutoclickerMax: 150,
-	superAutoclickerMinCost: 1000,
-	superAutoclickerMaxCost: 800,
+	superAutoclickerMin: 10,
+	superAutoclickerMax: 100,
+	superAutoclickerMinCost: 200,
+	superAutoclickerMaxCost: 300,
 	superAutoclickerResults: []
 };
 
@@ -45,6 +50,11 @@ const autoclickerMaxBtn = document.getElementById('autoclickerMaxBtn');
 const superAutoclickerBuyBtn = document.getElementById('superAutoclickerBuyBtn');
 const superAutoclickerMinBtn = document.getElementById('superAutoclickerMinBtn');
 const superAutoclickerMaxBtn = document.getElementById('superAutoclickerMaxBtn');
+
+const unlockPrimeNumbersBtn = document.getElementById('unlockPrimeNumbersBtn');
+const unlockTenNumbersBtn = document.getElementById('unlockTenNumbersBtn');
+const unlockAutoclickersBtn = document.getElementById('unlockAutoclickersBtn');
+const unlockSuperAutoclickersBtn = document.getElementById('unlockSuperAutoclickersBtn');
 
 const saveGameBtn = document.getElementById('saveGameBtn');
 const loadGameBtn = document.getElementById('loadGameBtn');
@@ -66,9 +76,9 @@ function updateUI() {
 	document.getElementById('clickMinCost').innerText = numWithCommas(stats.clickMinCost);
 	document.getElementById('clickMaxCost').innerText = numWithCommas(stats.clickMaxCost);
 	document.getElementById('clickResults').innerHTML = stats.clickResults.map((number) => {
-		if (isPowerOfTen(number)) {
+		if (isPowerOfTen(number) && stats.unlockTenNumbers) {
 			return `<span style="color: red;">${number}</span>`;
-		} else if (isPrime(number)) {
+		} else if (isPrime(number) && stats.unlockPrimeNumbers) {
 			return `<span style="color: blue;">${number}</span>`;
 		} else {
 			return number;
@@ -82,9 +92,9 @@ function updateUI() {
 	document.getElementById('autoclickerMinCost').innerText = numWithCommas(stats.autoclickerMinCost);
 	document.getElementById('autoclickerMaxCost').innerText = numWithCommas(stats.autoclickerMaxCost);
 	document.getElementById('autoclickerResults').innerHTML = stats.autoclickerResults.map((number) => {
-		if (isPowerOfTen(number)) {
+		if (isPowerOfTen(number) && stats.unlockTenNumbers) {
 			return `<span style="color: red;">${number}</span>`;
-		} else if (isPrime(number)) {
+		} else if (isPrime(number) && stats.unlockPrimeNumbers) {
 			return `<span style="color: blue;">${number}</span>`;
 		} else {
 			return number;
@@ -98,9 +108,9 @@ function updateUI() {
 	document.getElementById('superAutoclickerMinCost').innerText = numWithCommas(stats.superAutoclickerMinCost);
 	document.getElementById('superAutoclickerMaxCost').innerText = numWithCommas(stats.superAutoclickerMaxCost);
 	document.getElementById('superAutoclickerResults').innerHTML = stats.superAutoclickerResults.map((number) => {
-		if (isPowerOfTen(number)) {
+		if (isPowerOfTen(number) && stats.unlockTenNumbers) {
 			return `<span style="color: red;">${number}</span>`;
-		} else if (isPrime(number)) {
+		} else if (isPrime(number) && stats.unlockPrimeNumbers) {
 			return `<span style="color: blue;">${number}</span>`;
 		} else {
 			return number;
@@ -112,9 +122,12 @@ function updateUI() {
 	document.getElementById('tenNumbersPerSec').innerText = numWithCommas(deltaTenNumber);
 	
 	// Hidden stuff
+	document.getElementById('unlockPrimeNumbers').hidden = !stats.unlockPrimeNumbers;
+	document.getElementById('unlockTenNumbers').hidden = !stats.unlockTenNumbers;
+	document.getElementById('unlockAutoclickers').hidden = !stats.unlockAutoclickers;
+	document.getElementById('unlockSuperAutoclickers').hidden = !stats.unlockSuperAutoclickers;
 	document.getElementById('boughtAutoclicker').hidden = stats.autoclickers <= 0;
 	document.getElementById('boughtSuperAutoclicker').hidden = stats.superAutoclickers <= 0;
-	//document.getElementById('primeNumbersContainer').hidden = stats.primeNumbers <= 0;
 
 	// Disable buttons
 	clickMinBtn.disabled = stats.clickMin >= stats.clickMax || stats.clickMinCost > stats.numbers;
@@ -127,6 +140,15 @@ function updateUI() {
 	superAutoclickerBuyBtn.disabled = stats.superAutoclickerCost > stats.tenNumbers;
 	superAutoclickerMinBtn.disabled = stats.superAutoclickerMin >= stats.superAutoclickerMax || stats.superAutoclickerMinCost > stats.primeNumbers || stats.superAutoclickers == 0;
 	superAutoclickerMaxBtn.disabled = stats.superAutoclickerMaxCost > stats.primeNumbers || stats.superAutoclickers == 0;
+
+	unlockPrimeNumbersBtn.disabled = 1000 > stats.numbers;
+	unlockPrimeNumbersBtn.style.display = 500 > stats.totalNumbers || stats.unlockPrimeNumbers ? "none" : "block";
+	unlockTenNumbersBtn.disabled = 5000 > stats.primeNumbers;
+	unlockTenNumbersBtn.style.display = 10000 > stats.totalNumbers || stats.unlockTenNumbers ? "none" : "block";
+	unlockAutoclickersBtn.disabled = 500 > stats.numbers;
+	unlockAutoclickersBtn.style.display = 250 > stats.totalNumbers || stats.unlockAutoclickers ? "none" : "block";
+	unlockSuperAutoclickersBtn.disabled = 2500 > stats.primeNumbers;
+	unlockSuperAutoclickersBtn.style.display = 50000 > stats.totalNumbers || stats.unlockSuperAutoclickers ? "none" : "block";
 }
 
 // ====================================================
@@ -136,9 +158,9 @@ function updateUI() {
 clickBtn.addEventListener("click", () => {
 	let num = getRandomInt(stats.clickMin, stats.clickMax);
 
-	if (isPowerOfTen(num)) {
+	if (isPowerOfTen(num) && stats.unlockTenNumbers) {
 		stats.tenNumbers += num;
-	} else if (isPrime(num)) {
+	} else if (isPrime(num) && stats.unlockPrimeNumbers) {
 		stats.primeNumbers += num;
 	} else {
 		stats.numbers += num;
@@ -150,7 +172,6 @@ clickBtn.addEventListener("click", () => {
 	if (stats.clickResults.length > LAST_RESULTS_LENGTH) {
 		stats.clickResults.pop();
 	}
-
 	
 	updateUI();
 });
@@ -215,7 +236,7 @@ superAutoclickerMinBtn.addEventListener("click", () => {
 	if (stats.primeNumbers >= stats.superAutoclickerMinCost) {
 		stats.superAutoclickerMin += 1;
 		stats.primeNumbers -= stats.superAutoclickerMinCost;
-		stats.superAutoclickerMinCost += Math.floor(10 * Math.pow(1.15, stats.superAutoclickerMin));
+		stats.superAutoclickerMinCost += Math.floor(5 * Math.pow(1.15, stats.superAutoclickerMin));
 	}
 	updateUI();
 });
@@ -224,7 +245,40 @@ superAutoclickerMaxBtn.addEventListener("click", () => {
 	if (stats.primeNumbers >= stats.superAutoclickerMaxCost) {
 		stats.superAutoclickerMax += 1;
 		stats.primeNumbers -= stats.superAutoclickerMaxCost;
-		stats.superAutoclickerMaxCost += Math.floor(8 * Math.pow(1.05, stats.superAutoclickerMax));
+		stats.superAutoclickerMaxCost += Math.floor(5 * Math.pow(1.05, stats.superAutoclickerMax));
+	}
+	updateUI();
+});
+
+// Unlocks
+unlockPrimeNumbersBtn.addEventListener("click", () => {
+	if (stats.numbers >= 1000) {
+		stats.numbers -= 1000;
+		stats.unlockPrimeNumbers = true;
+	}
+	updateUI();
+});
+
+unlockTenNumbersBtn.addEventListener("click", () => {
+	if (stats.primeNumbers >= 5000) {
+		stats.primeNumbers -= 5000;
+		stats.unlockTenNumbers = true;
+	}
+	updateUI();
+});
+
+unlockAutoclickersBtn.addEventListener("click", () => {
+	if (stats.numbers >= 500) {
+		stats.numbers -= 500;
+		stats.unlockAutoclickers = true;
+	}
+	updateUI();
+});
+
+unlockSuperAutoclickersBtn.addEventListener("click", () => {
+	if (stats.primeNumbers >= 2500) {
+		stats.primeNumbers -= 2500;
+		stats.unlockSuperAutoclickers = true;
 	}
 	updateUI();
 });
@@ -265,9 +319,9 @@ window.setInterval(function() {
 	for (let i = 0; i < stats.autoclickers; i++) {
 		let num = getRandomInt(stats.autoclickerMin, stats.autoclickerMax);
 
-		if (isPowerOfTen(num)) {
+		if (isPowerOfTen(num) && stats.unlockTenNumbers) {
 			stats.tenNumbers += num;
-		} else if (isPrime(num)) {
+		} else if (isPrime(num) && stats.unlockPrimeNumbers) {
 			stats.primeNumbers += num;
 		} else {
 			stats.numbers += num;
@@ -285,9 +339,9 @@ window.setInterval(function() {
 	for (let i = 0; i < stats.superAutoclickers; i++) {
 		let num = getRandomInt(stats.superAutoclickerMin, stats.superAutoclickerMax);
 
-		if (isPowerOfTen(num)) {
+		if (isPowerOfTen(num) && stats.unlockTenNumbers) {
 			stats.tenNumbers += num;
-		} else if (isPrime(num)) {
+		} else if (isPrime(num) && stats.unlockPrimeNumbers) {
 			stats.primeNumbers += num;
 		} else {
 			stats.numbers += num;
