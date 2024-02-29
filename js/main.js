@@ -42,6 +42,10 @@ const autoclickerBuyBtn = document.getElementById('autoclickerBuyBtn');
 const autoclickerMinBtn = document.getElementById('autoclickerMinBtn');
 const autoclickerMaxBtn = document.getElementById('autoclickerMaxBtn');
 
+const superAutoclickerBuyBtn = document.getElementById('superAutoclickerBuyBtn');
+const superAutoclickerMinBtn = document.getElementById('superAutoclickerMinBtn');
+const superAutoclickerMaxBtn = document.getElementById('superAutoclickerMaxBtn');
+
 const saveGameBtn = document.getElementById('saveGameBtn');
 const loadGameBtn = document.getElementById('loadGameBtn');
 const deleteSaveBtn = document.getElementById('deleteSaveBtn');
@@ -87,24 +91,48 @@ function updateUI() {
 		}
 	}).join(", ");
 
+	document.getElementById('superAutoclickers').innerText = numWithCommas(stats.superAutoclickers);
+	document.getElementById('superAutoclickerCost').innerText = numWithCommas(stats.superAutoclickerCost);
+	document.getElementById('superAutoclickerMin').innerText = numWithCommas(stats.superAutoclickerMin);
+	document.getElementById('superAutoclickerMax').innerText = numWithCommas(stats.superAutoclickerMax);
+	document.getElementById('superAutoclickerMinCost').innerText = numWithCommas(stats.superAutoclickerMinCost);
+	document.getElementById('superAutoclickerMaxCost').innerText = numWithCommas(stats.superAutoclickerMaxCost);
+	document.getElementById('superAutoclickerResults').innerHTML = stats.superAutoclickerResults.map((number) => {
+		if (isPowerOfTen(number)) {
+			return `<span style="color: red;">${number}</span>`;
+		} else if (isPrime(number)) {
+			return `<span style="color: blue;">${number}</span>`;
+		} else {
+			return number;
+		}
+	}).join(", ");
+
 	document.getElementById('numbersPerSec').innerText = numWithCommas(deltaNumber);
 	document.getElementById('primeNumbersPerSec').innerText = numWithCommas(deltaPrimeNumber);
+	document.getElementById('tenNumbersPerSec').innerText = numWithCommas(deltaTenNumber);
 	
 	// Hidden stuff
-	document.getElementById('unlockAutoclickers').hidden = stats.autoclickers <= 0;
+	document.getElementById('boughtAutoclicker').hidden = stats.autoclickers <= 0;
+	document.getElementById('boughtSuperAutoclicker').hidden = stats.superAutoclickers <= 0;
 	//document.getElementById('primeNumbersContainer').hidden = stats.primeNumbers <= 0;
 
 	// Disable buttons
 	clickMinBtn.disabled = stats.clickMin >= stats.clickMax || stats.clickMinCost > stats.numbers;
 	clickMaxBtn.disabled = stats.clickMaxCost > stats.numbers;
+	
 	autoclickerBuyBtn.disabled = stats.autoclickerCost > stats.primeNumbers;
 	autoclickerMinBtn.disabled = stats.autoclickerMin >= stats.autoclickerMax || stats.autoclickerMinCost > stats.numbers || stats.autoclickers == 0;
 	autoclickerMaxBtn.disabled = stats.autoclickerMaxCost > stats.numbers || stats.autoclickers == 0;
+	
+	superAutoclickerBuyBtn.disabled = stats.superAutoclickerCost > stats.tenNumbers;
+	superAutoclickerMinBtn.disabled = stats.superAutoclickerMin >= stats.superAutoclickerMax || stats.superAutoclickerMinCost > stats.primeNumbers || stats.superAutoclickers == 0;
+	superAutoclickerMaxBtn.disabled = stats.superAutoclickerMaxCost > stats.primeNumbers || stats.superAutoclickers == 0;
 }
 
 // ====================================================
 // Button functions
 
+// Manual Clicks
 clickBtn.addEventListener("click", () => {
 	let num = getRandomInt(stats.clickMin, stats.clickMax);
 
@@ -145,6 +173,7 @@ clickMaxBtn.addEventListener("click", () => {
 	updateUI();
 });
 
+// Autoclickers
 autoclickerBuyBtn.addEventListener("click", () => {
 	if (stats.primeNumbers >= stats.autoclickerCost) {
 		stats.autoclickers += 1;
@@ -172,6 +201,34 @@ autoclickerMaxBtn.addEventListener("click", () => {
 	updateUI();
 });
 
+// Super Autoclickers
+superAutoclickerBuyBtn.addEventListener("click", () => {
+	if (stats.tenNumbers >= stats.superAutoclickerCost) {
+		stats.superAutoclickers += 1;
+		stats.tenNumbers -= stats.superAutoclickerCost;
+		stats.superAutoclickerCost += Math.floor(250 * Math.pow(1.05, stats.superAutoclickerCost));
+	}
+	updateUI();
+});
+
+superAutoclickerMinBtn.addEventListener("click", () => {
+	if (stats.primeNumbers >= stats.superAutoclickerMinCost) {
+		stats.superAutoclickerMin += 1;
+		stats.primeNumbers -= stats.superAutoclickerMinCost;
+		stats.superAutoclickerMinCost += Math.floor(10 * Math.pow(1.15, stats.superAutoclickerMin));
+	}
+	updateUI();
+});
+
+superAutoclickerMaxBtn.addEventListener("click", () => {
+	if (stats.primeNumbers >= stats.superAutoclickerMaxCost) {
+		stats.superAutoclickerMax += 1;
+		stats.primeNumbers -= stats.superAutoclickerMaxCost;
+		stats.superAutoclickerMaxCost += Math.floor(8 * Math.pow(1.05, stats.superAutoclickerMax));
+	}
+	updateUI();
+});
+
 // ====================================================
 // Game initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -189,12 +246,18 @@ deltaNumber = 0;
 lastPrimeNumber = 0;
 deltaPrimeNumber = 0;
 
+lastTenNumber = 0;
+deltaTenNumber = 0;
+
 window.setInterval(function() {
 	deltaNumber = stats.numbers - lastNumber;
 	lastNumber = stats.numbers;
 
 	deltaPrimeNumber = stats.primeNumbers - lastPrimeNumber;
 	lastPrimeNumber = stats.primeNumbers;
+
+	deltaTenNumber = stats.deltaNumbers - lastDeltaNumber;
+	lastTenNumber = stats.tenNumbers;
 
 	stats.totalTime += 1;
 
