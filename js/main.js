@@ -27,7 +27,7 @@ let stats = {
 	superAutoclickers: 0,
 	superAutoclickerCost: 1000,
 	superAutoclickerMin: 50,
-	superAutoclickerMax: 100,
+	superAutoclickerMax: 150,
 	superAutoclickerMinCost: 1000,
 	superAutoclickerMaxCost: 800,
 	superAutoclickerResults: []
@@ -178,7 +178,7 @@ autoclickerBuyBtn.addEventListener("click", () => {
 	if (stats.primeNumbers >= stats.autoclickerCost) {
 		stats.autoclickers += 1;
 		stats.primeNumbers -= stats.autoclickerCost;
-		stats.autoclickerCost += Math.floor(100 * Math.pow(1.2, stats.autoclickers));
+		stats.autoclickerCost += Math.floor(100 * Math.pow(1.25, stats.autoclickers));
 	}
 	updateUI();
 });
@@ -206,7 +206,7 @@ superAutoclickerBuyBtn.addEventListener("click", () => {
 	if (stats.tenNumbers >= stats.superAutoclickerCost) {
 		stats.superAutoclickers += 1;
 		stats.tenNumbers -= stats.superAutoclickerCost;
-		stats.superAutoclickerCost += Math.floor(250 * Math.pow(1.05, stats.superAutoclickerCost));
+		stats.superAutoclickerCost = Math.pow(10, stats.superAutoclickers + 3);
 	}
 	updateUI();
 });
@@ -278,6 +278,26 @@ window.setInterval(function() {
 
 		if (stats.autoclickerResults.length > LAST_RESULTS_LENGTH) {
 			stats.autoclickerResults.pop();
+		}
+	}
+
+	// Super Autoclickers
+	for (let i = 0; i < stats.superAutoclickers; i++) {
+		let num = getRandomInt(stats.superAutoclickerMin, stats.superAutoclickerMax);
+
+		if (isPowerOfTen(num)) {
+			stats.tenNumbers += num;
+		} else if (isPrime(num)) {
+			stats.primeNumbers += num;
+		} else {
+			stats.numbers += num;
+		}
+
+		stats.totalNumbers += num;
+		stats.superAutoclickerResults.unshift(num);
+
+		if (stats.superAutoclickerResults.length > LAST_RESULTS_LENGTH) {
+			stats.superAutoclickerResults.pop();
 		}
 	}
 
