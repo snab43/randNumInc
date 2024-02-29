@@ -35,7 +35,7 @@ let stats = {
 	autoclickerResults: [],
 
 	superAutoclickers: 0,
-	superAutoclickerCost: 1000,
+	superAutoclickerCost: 100,
 	superAutoclickerMin: 10,
 	superAutoclickerMax: 100,
 	superAutoclickerMinCost: 200,
@@ -83,51 +83,93 @@ function updateUI() {
 	document.getElementById('totalTime').innerText = formatTime(stats.totalTime);
 	
 	// Manual Clicks
-	document.getElementById('clickMin').innerText = numWithCommas(stats.clickMin);
-	document.getElementById('clickMax').innerText = numWithCommas(stats.clickMax);
+	// clickMin
+	if (isPowerOfTen(stats.clickMin) && stats.unlockTenNumbers) {
+		document.getElementById('clickMin').innerHTML = `<span class="tenColor">${numWithCommas(stats.clickMin)}</span>`;
+	} else if (isPrime(stats.clickMin) && stats.unlockPrimeNumbers) {
+		document.getElementById('clickMin').innerHTML = `<span class="primeColor">${numWithCommas(stats.clickMin)}</span>`;
+	} else {
+		document.getElementById('clickMin').innerHTML = `${numWithCommas(stats.clickMin)}`;
+	}
+	// clickMax
+	if (isPowerOfTen(stats.clickMax) && stats.unlockTenNumbers) {
+		document.getElementById('clickMax').innerHTML = `<span class="tenColor">${numWithCommas(stats.clickMax)}</span>`;
+	} else if (isPrime(stats.clickMax) && stats.unlockPrimeNumbers) {
+		document.getElementById('clickMax').innerHTML = `<span class="primeColor">${numWithCommas(stats.clickMax)}</span>`;
+	} else {
+		document.getElementById('clickMax').innerHTML = `${numWithCommas(stats.clickMax)}`;
+	}
 	document.getElementById('clickMinCost').innerText = numWithCommas(stats.clickMinCost);
 	document.getElementById('clickMaxCost').innerText = numWithCommas(stats.clickMaxCost);
 	document.getElementById('clickResults').innerHTML = stats.clickResults.map((number) => {
 		if (isPowerOfTen(number) && stats.unlockTenNumbers) {
-			return `<span style="color: red;">${number}</span>`;
+			return `<span style="color: red;">${numWithCommas(number)}</span>`;
 		} else if (isPrime(number) && stats.unlockPrimeNumbers) {
-			return `<span style="color: blue;">${number}</span>`;
+			return `<span style="color: blue;">${numWithCommas(number)}</span>`;
 		} else {
-			return number;
+			return numWithCommas(number);
 		}
 	}).join(", ");
 
 	// Autoclickers
 	document.getElementById('autoclickers').innerText = numWithCommas(stats.autoclickers);
 	document.getElementById('autoclickerCost').innerText = numWithCommas(stats.autoclickerCost);
-	document.getElementById('autoclickerMin').innerText = numWithCommas(stats.autoclickerMin);
-	document.getElementById('autoclickerMax').innerText = numWithCommas(stats.autoclickerMax);
+	// autoclickerMin
+	if (isPowerOfTen(stats.autoclickerMin) && stats.unlockTenNumbers) {
+		document.getElementById('autoclickerMin').innerHTML = `<span class="tenColor">${numWithCommas(stats.autoclickerMin)}</span>`;
+	} else if (isPrime(stats.autoclickerMin) && stats.unlockPrimeNumbers) {
+		document.getElementById('autoclickerMin').innerHTML = `<span class="primeColor">${numWithCommas(stats.autoclickerMin)}</span>`;
+	} else {
+		document.getElementById('autoclickerMin').innerHTML = `${numWithCommas(stats.autoclickerMin)}`;
+	}
+	// autoclickerMax
+	if (isPowerOfTen(stats.autoclickerMax) && stats.unlockTenNumbers) {
+		document.getElementById('autoclickerMax').innerHTML = `<span class="tenColor">${numWithCommas(stats.autoclickerMax)}</span>`;
+	} else if (isPrime(stats.autoclickerMax) && stats.unlockPrimeNumbers) {
+		document.getElementById('autoclickerMax').innerHTML = `<span class="primeColor">${numWithCommas(stats.autoclickerMax)}</span>`;
+	} else {
+		document.getElementById('autoclickerMax').innerHTML = `${numWithCommas(stats.autoclickerMax)}`;
+	}
 	document.getElementById('autoclickerMinCost').innerText = numWithCommas(stats.autoclickerMinCost);
 	document.getElementById('autoclickerMaxCost').innerText = numWithCommas(stats.autoclickerMaxCost);
 	document.getElementById('autoclickerResults').innerHTML = stats.autoclickerResults.map((number) => {
 		if (isPowerOfTen(number) && stats.unlockTenNumbers) {
-			return `<span style="color: red;">${number}</span>`;
+			return `<span style="color: red;">${numWithCommas(number)}</span>`;
 		} else if (isPrime(number) && stats.unlockPrimeNumbers) {
-			return `<span style="color: blue;">${number}</span>`;
+			return `<span style="color: blue;">${numWithCommas(number)}</span>`;
 		} else {
-			return number;
+			return numWithCommas(number);
 		}
 	}).join(", ");
 
 	// Super Autoclickers
 	document.getElementById('superAutoclickers').innerText = numWithCommas(stats.superAutoclickers);
 	document.getElementById('superAutoclickerCost').innerText = numWithCommas(stats.superAutoclickerCost);
-	document.getElementById('superAutoclickerMin').innerText = numWithCommas(stats.superAutoclickerMin);
-	document.getElementById('superAutoclickerMax').innerText = numWithCommas(stats.superAutoclickerMax);
+	// superAutoclickerMin
+	if (isPowerOfTen(stats.superAutoclickerMin) && stats.unlockTenNumbers) {
+		document.getElementById('superAutoclickerMin').innerHTML = `<span class="tenColor">${numWithCommas(stats.superAutoclickerMin)}</span>`;
+	} else if (isPrime(stats.superAutoclickerMin) && stats.unlockPrimeNumbers) {
+		document.getElementById('superAutoclickerMin').innerHTML = `<span class="primeColor">${numWithCommas(stats.superAutoclickerMin)}</span>`;
+	} else {
+		document.getElementById('superAutoclickerMin').innerHTML = `${numWithCommas(stats.superAutoclickerMin)}`;
+	}
+	// superAutoclickerMax
+	if (isPowerOfTen(stats.superAutoclickerMax) && stats.unlockTenNumbers) {
+		document.getElementById('superAutoclickerMax').innerHTML = `<span class="tenColor">${numWithCommas(stats.superAutoclickerMax)}</span>`;
+	} else if (isPrime(stats.superAutoclickerMax) && stats.unlockPrimeNumbers) {
+		document.getElementById('superAutoclickerMax').innerHTML = `<span class="primeColor">${numWithCommas(stats.superAutoclickerMax)}</span>`;
+	} else {
+		document.getElementById('superAutoclickerMax').innerHTML = `${numWithCommas(stats.superAutoclickerMax)}`;
+	}
 	document.getElementById('superAutoclickerMinCost').innerText = numWithCommas(stats.superAutoclickerMinCost);
 	document.getElementById('superAutoclickerMaxCost').innerText = numWithCommas(stats.superAutoclickerMaxCost);
 	document.getElementById('superAutoclickerResults').innerHTML = stats.superAutoclickerResults.map((number) => {
 		if (isPowerOfTen(number) && stats.unlockTenNumbers) {
-			return `<span style="color: red;">${number}</span>`;
+			return `<span style="color: red;">${numWithCommas(number)}</span>`;
 		} else if (isPrime(number) && stats.unlockPrimeNumbers) {
-			return `<span style="color: blue;">${number}</span>`;
+			return `<span style="color: blue;">${numWithCommas(number)}</span>`;
 		} else {
-			return number;
+			return numWithCommas(number);
 		}
 	}).join(", ");
 
@@ -244,7 +286,7 @@ superAutoclickerBuyBtn.addEventListener("click", () => {
 	if (stats.tenNumbers >= stats.superAutoclickerCost) {
 		stats.superAutoclickers += 1;
 		stats.tenNumbers -= stats.superAutoclickerCost;
-		stats.superAutoclickerCost = Math.pow(10, stats.superAutoclickers + 3);
+		stats.superAutoclickerCost = Math.pow(10, stats.superAutoclickers + 2);
 	}
 	updateUI();
 });
