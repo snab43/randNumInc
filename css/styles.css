@@ -8,8 +8,13 @@ h1 {
 	font-size: 24px;
 }
 
+button {
+	touch-action: manipulation;
+	margin-right: 4px;
+}
+
 .window {
-	margin-bottom: 12px;
+	margin-bottom: 8px;
 }
 
 .primeColor {
