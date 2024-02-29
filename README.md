@@ -1,6 +1,6 @@
 <div align="center">
-    <h3 align="center">randNumInc.exe</h3>
-    <p align="center">Random Number Incremental. A short 10 minute incremental game about generating random numbers.</p>
+	<h3 align="center">randNumInc.exe</h3>
+	<p align="center">Random Number Incremental. A short 10 minute incremental game about generating random numbers.</p>
 </div>
 
 Play it here: https://snab43.github.io/randNumInc/
@@ -18,7 +18,9 @@ The game is an unfolding incremental. To start, hit "Get a Number" which will ge
 You can also upgrade the minimum and maximum range for your number generator to get better values.
 
 <details>
-<h3><summary>Spoilers</summary></h3>
+<summary>
+	<h3>Spoilers</h3>
+</summary>
 
 ### Number Types
 
