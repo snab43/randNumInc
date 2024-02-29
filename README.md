@@ -17,12 +17,10 @@ The game is an unfolding incremental. To start, hit "Get a Number" which will ge
 
 You can also upgrade the minimum and maximum range for your number generator to get better values.
 
-<details>
-<summary>
-	<h3>Spoilers</h3>
-</summary>
+### Spoilers
+<details><summary>Spoiler Section</summary>
 
-### Number Types
+#### Number Types
 
 There are 2 additional number types to unlock for a total of 3:
 
@@ -32,7 +30,7 @@ There are 2 additional number types to unlock for a total of 3:
 
 When you unlock these number types, numbers that are prime will be added to your Prime Number resource pool instead, and the same with 10^x Numbers.
 
-### Unlocks
+#### Unlocks
 
 There are 2 additional unlockables:
 
@@ -41,11 +39,11 @@ There are 2 additional unlockables:
 
 Autoclickers cost Prime Numbers and Super Autoclickers cost 10^x Numbers. Super Autoclickers are powerful and therefore cost an increasing amount of 10^x numbers to unlock starting with 100, then 1000, then 10000, etc.
 
-### Strategies
+#### Strategies
 
 Knowing this, the strategy can be setting your Min and Max for your Manual Clicks or Autoclickers to optimally generate more Prime Numbers than regular Numbers, or to generate 10s and 100s.
 
-### Soft Lock
+#### Soft Lock
 
 However, if you set your Manual Clicks and Autoclicks' Min to 11 or more, it does take a while to get your maximum to 100 so you can start generating 10^x Numbers to unlock Super Autoclickers. I tried to tune the difficulty curve and make the game short enough so this isn't too much of an annoyance.
 </details>
