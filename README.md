@@ -1,6 +1,6 @@
 <div align="center">
 	<img src="https://snab43.github.io/randNumInc/img/dice.png">
-	<h3 align="center" style="margin-top: 0;">randNumInc.exe</h3>
+	<h3 align="center">randNumInc.exe</h3>
 	<p align="center">Random Number Incremental. A short 10 minute incremental game about generating random numbers.</p>
 </div>
 
