@@ -8,6 +8,7 @@ let stats = {
 	tenNumbers: 0,
 
 	totalNumbers: 0,
+	numbersLeft: 100000000,
 	totalTime: 0,
 
 	unlockPrimeNumbers: false,
@@ -69,6 +70,7 @@ function updateUI() {
 	document.getElementById('tenNumbers').innerText = numWithCommas(stats.tenNumbers);
 
 	document.getElementById('totalNumbers').innerText = numWithCommas(stats.totalNumbers);
+	document.getElementById('numbersLeft').innerText = numWithCommas(stats.numbersLeft);
 	document.getElementById('totalTime').innerText = formatTime(stats.totalTime);
 	
 	document.getElementById('clickMin').innerText = numWithCommas(stats.clickMin);
@@ -167,6 +169,7 @@ clickBtn.addEventListener("click", () => {
 	}
 
 	stats.totalNumbers += num;
+	stats.numbersLeft -= num;
 	stats.clickResults.unshift(num);
 	
 	if (stats.clickResults.length > LAST_RESULTS_LENGTH) {
@@ -328,6 +331,7 @@ window.setInterval(function() {
 		}
 
 		stats.totalNumbers += num;
+		stats.numbersLeft -= num;
 		stats.autoclickerResults.unshift(num);
 
 		if (stats.autoclickerResults.length > LAST_RESULTS_LENGTH) {
@@ -348,6 +352,7 @@ window.setInterval(function() {
 		}
 
 		stats.totalNumbers += num;
+		stats.numbersLeft -= num;
 		stats.superAutoclickerResults.unshift(num);
 
 		if (stats.superAutoclickerResults.length > LAST_RESULTS_LENGTH) {
@@ -420,7 +425,7 @@ function isPrime(num) {
 }
 
 function isPowerOfTen(num) {
-	if (num < 10) return false;
+	if (num < 0) return false;
 	const log = Math.log10(num);
 	return log === Math.floor(log);
 }
